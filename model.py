@@ -119,7 +119,7 @@ class MBConvBlock(nn.Module):
             x = torch.sigmoid(x_squeezed) * x
 
         # Pointwise Convolution
-        x = self._project_conv
+        x = self._project_conv(x)
         x = self._bn2(x)
 
         # Skip connection and drop connect
@@ -183,7 +183,7 @@ class EfficientNet(nn.Module):
         )  # number of output channels
         self._conv_stem = Conv2d(
             in_channels, out_channels, kernel_size=(15, 1), stride=(2, 1), bias=False
-        )
+        )  # 여기서만 image_size와 out_channel이 바뀌고 나머지는 그대로임
         self._bn0 = nn.BatchNorm2d(
             num_features=out_channels, momentum=bn_mom, eps=bn_eps
         )
@@ -229,7 +229,7 @@ class EfficientNet(nn.Module):
         )
 
         # Final linear layer
-        # self._avg_pooling = nn.AdaptiveAvgPool2d(1) <-- 원본
+        self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
         self._dropout = nn.Dropout(self._global_params.dropout_rate)
         self._fc = nn.Linear(self.define_last_fcn(), self._global_params.num_classes)
 

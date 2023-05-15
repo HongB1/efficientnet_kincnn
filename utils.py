@@ -209,9 +209,10 @@ def calculate_output_image_size(input_image_size, stride):
     if input_image_size is None:
         return None
     image_height, image_width = get_width_and_height_from_size(input_image_size)
-    stride = stride if isinstance(stride, int) else stride[0]
-    image_height = int(math.ceil(image_height / stride))
-    image_width = int(math.ceil(image_width / stride))
+    sh, sw = stride if type(stride) == (list) or (tuple) else [stride, stride]
+    # stride = stride if isinstance(stride, int) else stride[0]
+    image_height = int(math.ceil(image_height / sh))
+    image_width = int(math.ceil(image_width / sw))
     return [image_height, image_width]
 
 
@@ -293,45 +294,45 @@ class Conv2dDynamicSamePadding(nn.Conv2d):
         )
 
 
-class Conv2dNonPadding(nn.Conv2d):
-    """2D Convolutions like TensorFlow, for a fixed image size"""
-
-    def __init__(
-        self,
-        in_channels,
-        out_channels,
-        kernel_size,
-        stride=1,
-        image_size=None,
-        **kwargs
-    ):
-        super().__init__(in_channels, out_channels, kernel_size, stride, **kwargs)
-        self.stride = self.stride if len(self.stride) == 2 else [self.stride[0]] * 2
-
-        # Calculate padding based on image size and save it
-        assert image_size is not None
-        ih, iw = image_size if type(image_size) == list else [image_size, image_size]
-        # print(self.weight)
-        print(type(self.weight))
-        print(self.weight.shape)
-        kh, kw = self.weight.size()[-2:]
-        print(kh, kw)
-        sh, sw = self.stride
-        oh, ow = math.ceil(ih / sh), math.ceil(iw / sw)
-        self.static_padding = nn.Identity()
-
-    def forward(self, x):
-        x = self.static_padding(x)
-        x = F.conv2d(
-            x,
-            self.weight,
-            self.bias,
-            self.stride,
-            self.padding,
-            self.dilation,
-            self.groups,
-        )
-        return x
+# class Conv2dNonPadding(nn.Conv2d):
+#     """2D Convolutions like TensorFlow, for a fixed image size"""
+#
+#     def __init__(
+#         self,
+#         in_channels,
+#         out_channels,
+#         kernel_size,
+#         stride=1,
+#         image_size=None,
+#         **kwargs
+#     ):
+#         super().__init__(in_channels, out_channels, kernel_size, stride, **kwargs)
+#         self.stride = self.stride if len(self.stride) == 2 else [self.stride[0]] * 2
+#
+#         # Calculate padding based on image size and save it
+#         assert image_size is not None
+#         ih, iw = image_size if type(image_size) == list else [image_size, image_size]
+#         # print(self.weight)
+#         print(type(self.weight))
+#         print(self.weight.shape)
+#         kh, kw = self.weight.size()[-2:]
+#         print(kh, kw)
+#         sh, sw = self.stride
+#         oh, ow = math.ceil(ih / sh), math.ceil(iw / sw)
+#         self.static_padding = nn.Identity()
+#
+#     def forward(self, x):
+#         x = self.static_padding(x)
+#         x = F.conv2d(
+#             x,
+#             self.weight,
+#             self.bias,
+#             self.stride,
+#             self.padding,
+#             self.dilation,
+#             self.groups,
+#         )
+#         return x
 
 
 class Conv2dStaticSamePadding(nn.Conv2d):
@@ -613,9 +614,9 @@ def efficientnet(
     """Creates a efficientnet model."""
 
     blocks_args = [
-        "r1_k3_s11_e1_i32_o16_se0.25",
-        "r2_k3_s22_e6_i16_o24_se0.25",
-        "r1_k5_s22_e6_i24_o40_se0.25",
+        "r1_kh8_kw2_sh2_sw2_e2_i8_o16_se0.25",
+        "r1_kh8_kw3_sh2_sw1_e2_i16_o32_se0.25",
+        "r1_kh6_kw3_sh2_sw2_e2_i32_o64_se0.25",
         # 'r3_k3_s22_e6_i40_o80_se0.25',
         # 'r3_k5_s11_e6_i80_o112_se0.25',
         # 'r4_k5_s22_e6_i112_o192_se0.25',
