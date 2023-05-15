@@ -18,7 +18,6 @@ from utils import (Conv2dNonPadding, Conv2dStaticSamePadding,
 # With adjustments and added comments by workingcoder (github username).
 
 
-
 class EfficientNet(nn.Module):
     """
     An EfficientNet model. Most easily loaded with the .from_name or .from_pretrained methods

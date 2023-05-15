@@ -534,20 +534,20 @@ class BlockDecoder(object):
                 key, value = splits[:2]
                 options[key] = value
 
-        # Check stride
-        assert ("s" in options and len(options["s"]) == 1) or (
-            len(options["s"]) == 2 and options["s"][0] == options["s"][1]
-        )
+        # # Check stride
+        # assert ("s" in options and len(options["s"]) == 1) or (
+        #     len(options["s"]) == 2 and options["s"][0] == options["s"][1]
+        # )
 
         return BlockArgs(
-            kernel_size=int(options["k"]),
+            kernel_size=(int(options["kh"]), int(options["kw"])),
             num_repeat=int(options["r"]),
             input_filters=int(options["i"]),
             output_filters=int(options["o"]),
             expand_ratio=int(options["e"]),
             id_skip=("noskip" not in block_string),
             se_ratio=float(options["se"]) if "se" in options else None,
-            stride=[int(options["s"][0])],
+            stride=(int(options["sh"]), int(options["sw"])),
         )
 
     @staticmethod
