@@ -3,25 +3,21 @@
 """
 from functools import partial
 
+import torch
+from torch import nn
+from torch.nn import functional as F
+
+from utils import (Conv2dNonPadding, Conv2dStaticSamePadding,
+                   MemoryEfficientSwish, Swish, calculate_output_image_size,
+                   drop_connect, efficientnet_params, get_model_params,
+                   get_same_padding_conv2d, load_pretrained_weights,
+                   round_filters, round_repeats)
+
 # Author: HongbiKim (github username)
 # Github repo: https://github.com/lukemelas/EfficientNet-PyTorch
 # With adjustments and added comments by workingcoder (github username).
 
-import torch
-from torch import nn
-from torch.nn import functional as F
-from utils import (
-    round_filters,
-    round_repeats,
-    drop_connect,
-    get_same_padding_conv2d,
-    get_model_params,
-    efficientnet_params,
-    load_pretrained_weights,
-    Swish,
-    MemoryEfficientSwish,
-    calculate_output_image_size, Conv2dNonPadding
-)
+
 
 class EfficientNet(nn.Module):
     """
@@ -35,8 +31,8 @@ class EfficientNet(nn.Module):
 
     def __init__(self, blocks_args=None, global_params=None):
         super().__init__()
-        assert isinstance(blocks_args, list), 'blocks_args should be a list'
-        assert len(blocks_args) > 0, 'block args must be greater than 0'
+        assert isinstance(blocks_args, list), "blocks_args should be a list"
+        assert len(blocks_args) > 0, "block args must be greater than 0"
         self._global_params = global_params
         self._blocks_args = blocks_args
 
@@ -46,34 +42,49 @@ class EfficientNet(nn.Module):
 
         # Get static or dynamic convolution depending on image size
         image_size = global_params.image_size
-        Conv2d = partial(Conv2dNonPadding, image_size=image_size)
+        Conv2d = partial(Conv2dStaticSamePadding, image_size=image_size)
 
         # Stem
         in_channels = 1  # rgb # 이 부분 수정했음
-        out_channels = round_filters(3, self._global_params)  # number of output channels
-        self._conv_stem = Conv2d(in_channels, out_channels, kernel_size=(15, 1), stride=(2, 1), bias=False)
-        self._bn0 = nn.BatchNorm2d(num_features=out_channels, momentum=bn_mom, eps=bn_eps)
+        out_channels = round_filters(
+            3, self._global_params
+        )  # number of output channels
+        self._conv_stem = Conv2d(
+            in_channels, out_channels, kernel_size=(15, 1), stride=(2, 1), bias=False
+        )
+        self._bn0 = nn.BatchNorm2d(
+            num_features=out_channels, momentum=bn_mom, eps=bn_eps
+        )
         image_size = calculate_output_image_size(image_size, stride=2)
 
         # Build blocks
         self._blocks = nn.ModuleList([])
         for block_args in self._blocks_args:
-
             # Update block input and output filters based on depth multiplier.
             block_args = block_args._replace(
-                input_filters=round_filters(block_args.input_filters, self._global_params),
+                input_filters=round_filters(
+                    block_args.input_filters, self._global_params
+                ),
                 # input_filters=8,
-                output_filters=round_filters(block_args.output_filters, self._global_params),
-                num_repeat=round_repeats(block_args.num_repeat, self._global_params)
+                output_filters=round_filters(
+                    block_args.output_filters, self._global_params
+                ),
+                num_repeat=round_repeats(block_args.num_repeat, self._global_params),
             )
 
             # The first block needs to take care of stride and filter size increase.
-            self._blocks.append(MBConvBlock(block_args, self._global_params, image_size=image_size))
+            self._blocks.append(
+                MBConvBlock(block_args, self._global_params, image_size=image_size)
+            )
             image_size = calculate_output_image_size(image_size, block_args.stride)
             if block_args.num_repeat > 1:  # modify block_args to keep same output size
-                block_args = block_args._replace(input_filters=block_args.output_filters, stride=1)
+                block_args = block_args._replace(
+                    input_filters=block_args.output_filters, stride=1
+                )
             for _ in range(block_args.num_repeat - 1):
-                self._blocks.append(MBConvBlock(block_args, self._global_params, image_size=image_size))
+                self._blocks.append(
+                    MBConvBlock(block_args, self._global_params, image_size=image_size)
+                )
 
         # Head
         in_channels = block_args.output_filters  # output of final block
@@ -81,7 +92,9 @@ class EfficientNet(nn.Module):
         # out_channels = round_filters(1280, self._global_params) <-- 원본
         # out_channels = 1280
         self._conv_head = Conv2d(in_channels, out_channels, kernel_size=1, bias=False)
-        self._bn1 = nn.BatchNorm2d(num_features=out_channels, momentum=bn_mom, eps=bn_eps)
+        self._bn1 = nn.BatchNorm2d(
+            num_features=out_channels, momentum=bn_mom, eps=bn_eps
+        )
 
         # Final linear layer
         # self._avg_pooling = nn.AdaptiveAvgPool2d(1) <-- 원본
@@ -134,33 +147,36 @@ class EfficientNet(nn.Module):
         for idx, block in enumerate(self._blocks):
             drop_connect_rate = self._global_params.drop_connect_rate
             if drop_connect_rate:
-                drop_connect_rate *= float(idx) / len(self._blocks)  # scale drop connect_rate
+                drop_connect_rate *= float(idx) / len(
+                    self._blocks
+                )  # scale drop connect_rate
             x = block(x, drop_connect_rate=drop_connect_rate)
             if prev_x.size(2) > x.size(2):
-                endpoints['reduction_{}'.format(len(endpoints) + 1)] = prev_x
+                endpoints["reduction_{}".format(len(endpoints) + 1)] = prev_x
             elif idx == len(self._blocks) - 1:
-                endpoints['reduction_{}'.format(len(endpoints) + 1)] = x
+                endpoints["reduction_{}".format(len(endpoints) + 1)] = x
             prev_x = x
 
         # Head
         x = self._swish(self._bn1(self._conv_head(x)))
-        endpoints['reduction_{}'.format(len(endpoints) + 1)] = x
+        endpoints["reduction_{}".format(len(endpoints) + 1)] = x
 
         return endpoints
+
     def define_last_fcn(self):
         global allele
         print(allele)
-        if 'phospho-A' in allele:
+        if "phospho-A" in allele:
             return 132096
-        elif 'phospho-B' in allele:
+        elif "phospho-B" in allele:
             return 8448
-        elif 'HLA-B' in allele:
+        elif "HLA-B" in allele:
             return 11392
-        elif 'HLA-C' in allele:
+        elif "HLA-C" in allele:
             return 6760
 
     def extract_features(self, inputs):
-        """ Returns output of the final convolution layer """
+        """Returns output of the final convolution layer"""
 
         # Stem
         x = self._conv_stem(inputs)
@@ -182,7 +198,7 @@ class EfficientNet(nn.Module):
         return x
 
     def forward(self, inputs):
-        """ Calls extract_features to extract features, applies final linear layer, and returns logits. """
+        """Calls extract_features to extract features, applies final linear layer, and returns logits."""
         # bs = inputs.size(0)
         # print(bs)
         # Convolution layers
@@ -216,7 +232,7 @@ class EfficientNet(nn.Module):
 
     @classmethod
     def _check_model_name_is_valid(cls, model_name):
-        """ Validates model name. """
-        valid_models = ['efficientnet-b' + str(i) for i in range(9)]
+        """Validates model name."""
+        valid_models = ["efficientnet-b" + str(i) for i in range(9)]
         if model_name not in valid_models:
-            raise ValueError('model_name should be one of: ' + ', '.join(valid_models))
+            raise ValueError("model_name should be one of: " + ", ".join(valid_models))
