@@ -555,8 +555,11 @@ class BlockDecoder(object):
         """Encodes a block to a string."""
         args = [
             "r%d" % block.num_repeat,
-            "k%d" % block.kernel_size,
-            "s%d%d" % (block.strides[0], block.strides[1]),
+            "kh%d" % block.kernel_size[0],
+            "kw%d" % block.kernel_size[1],
+            "sh%d" % block.stride[0],
+            "sw%d" % block.stride[1],
+            # "s%d%d" % (block.strides[0], block.strides[1]),
             "e%s" % block.expand_ratio,
             "i%d" % block.input_filters,
             "o%d" % block.output_filters
