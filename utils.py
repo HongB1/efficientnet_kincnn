@@ -15,7 +15,6 @@ from torch import nn
 from torch.nn import functional as F
 from torch.utils import model_zoo
 
-
 ################################################################################
 # Help functions for model architecture
 ################################################################################
@@ -245,12 +244,8 @@ class Conv2dDynamicSamePadding(nn.Conv2d):
         return F.conv2d(x, self.weight, self.bias, self.stride, self.padding, self.dilation, self.groups)
 
 
-class Conv2dStaticSamePadding(nn.Conv2d):
-    """2D Convolutions like TensorFlow's 'SAME' mode, with the given input image size.
-       The padding mudule is calculated in construction function, then used in forward.
-    """
-
-    # With the same calculation as Conv2dDynamicSamePadding
+class Conv2dNonPadding(nn.Conv2d):
+    """ 2D Convolutions like TensorFlow, for a fixed image size"""
 
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, image_size=None, **kwargs):
         super().__init__(in_channels, out_channels, kernel_size, stride, **kwargs)
@@ -258,12 +253,43 @@ class Conv2dStaticSamePadding(nn.Conv2d):
 
         # Calculate padding based on image size and save it
         assert image_size is not None
-        ih, iw = (image_size, image_size) if isinstance(image_size, int) else image_size
+        ih, iw = image_size if type(image_size) == list else [image_size, image_size]
+        # print(self.weight)
+        print(type(self.weight))
+        print(self.weight.shape)
         kh, kw = self.weight.size()[-2:]
+        print(kh, kw)
         sh, sw = self.stride
         oh, ow = math.ceil(ih / sh), math.ceil(iw / sw)
-        pad_h = max((oh - 1) * self.stride[0] + (kh - 1) * self.dilation[0] + 1 - ih, 0)
-        pad_w = max((ow - 1) * self.stride[1] + (kw - 1) * self.dilation[1] + 1 - iw, 0)
+        self.static_padding = nn.Identity()
+
+    def forward(self, x):
+        x = self.static_padding(x)
+        x = F.conv2d(x, self.weight, self.bias, self.stride, self.padding, self.dilation, self.groups)
+        return x
+
+
+class Conv2dStaticSamePadding(nn.Conv2d):
+    """2D Convolutions like TensorFlow's 'SAME' mode, with the given input image size.
+       The padding mudule is calculated in construction function, then used in forward.
+    """
+
+    # With the same calculation as Conv2dDynamicSamePadding
+    """
+    dilation(int or tuple, optional): Spacing between kernel elements.Default: 1
+    """
+
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1, image_size=None, **kwargs):
+        super().__init__(in_channels, out_channels, kernel_size, stride, **kwargs)
+
+        # Calculate padding based on image size and save it
+        assert image_size is not None
+        ih, iw = (image_size, image_size) if isinstance(image_size, int) else image_size
+        kh, kw = self.weight.size()[-2:]
+        sh, sw = (self.stride, self.stride) if isinstance(self.stride, int) else self.stride
+        oh, ow = math.ceil(ih / sh), math.ceil(iw / sw)
+        pad_h = max((oh - 1) * sh + (kh - 1) * self.dilation[0] + 1 - ih, 0)
+        pad_w = max((ow - 1) * sw + (kw - 1) * self.dilation[1] + 1 - iw, 0)
         if pad_h > 0 or pad_w > 0:
             self.static_padding = nn.ZeroPad2d((pad_w // 2, pad_w - pad_w // 2,
                                                 pad_h // 2, pad_h - pad_h // 2))
@@ -345,6 +371,7 @@ class MaxPool2dStaticSamePadding(nn.MaxPool2d):
         x = F.max_pool2d(x, self.kernel_size, self.stride, self.padding,
                          self.dilation, self.ceil_mode, self.return_indices)
         return x
+
 
 ########################################################################
 ############## HELPERS FUNCTIONS FOR LOADING MODEL PARAMS ##############

@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 import torch
 
 def prepare_dataset(dataset_mode=None):
-    df = pd.read_pickle("train1.pkl")
+    df = pd.read_pickle("test1.pkl")
     df = df.sample(frac=1, random_state=42).reset_index(drop=True)
     # df['stratify'] 컬럼의 unique value가 1인 값들은 df_로 따로 빼고, 나머지는 df로
     # df['stratify'].value_counts() : df['stratify'] 컬럼의 unique value들을 count해주는 함수
