@@ -222,7 +222,7 @@ class EfficientNet(nn.Module):
             self._blocks.append(
                 MBConvBlock(block_args, self._global_params, image_size=image_size)
             )
-            image_size = calculate_output_image_size(image_size, block_args.stride)
+            image_size = calculate_output_image_size(image_size, block_args.conv_stride)
             if block_args.num_repeat > 1:  # modify block_args to keep same output size
                 block_args = block_args._replace(
                     input_filters=block_args.output_filters, stride=1
