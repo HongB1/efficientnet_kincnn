@@ -256,14 +256,14 @@ class Conv2dDynamicSamePadding(nn.Conv2d):
     # => p = (i-1)*s+((k-1)*d+1)-i
 
     def __init__(
-        self,
-        in_channels,
-        out_channels,
-        kernel_size,
-        stride=1,
-        dilation=1,
-        groups=1,
-        bias=True,
+            self,
+            in_channels,
+            out_channels,
+            kernel_size,
+            stride=1,
+            dilation=1,
+            groups=1,
+            bias=True,
     ):
         super().__init__(
             in_channels, out_channels, kernel_size, stride, 0, dilation, groups, bias
@@ -293,6 +293,7 @@ class Conv2dDynamicSamePadding(nn.Conv2d):
             self.groups,
         )
 
+
 class Conv2dStaticSamePadding(nn.Conv2d):
     """2D Convolutions like TensorFlow's 'SAME' mode, with the given input image size.
     The padding mudule is calculated in construction function, then used in forward.
@@ -305,13 +306,13 @@ class Conv2dStaticSamePadding(nn.Conv2d):
     """
 
     def __init__(
-        self,
-        in_channels,
-        out_channels,
-        kernel_size,
-        stride=1,
-        image_size=None,
-        **kwargs
+            self,
+            in_channels,
+            out_channels,
+            kernel_size,
+            stride=1,
+            image_size=None,
+            **kwargs
     ):
         super().__init__(in_channels, out_channels, kernel_size, stride, **kwargs)
 
@@ -371,13 +372,13 @@ class MaxPool2dDynamicSamePadding(nn.MaxPool2d):
     """
 
     def __init__(
-        self,
-        kernel_size,
-        stride,
-        padding=0,
-        dilation=1,
-        return_indices=False,
-        ceil_mode=False,
+            self,
+            kernel_size,
+            stride,
+            padding=0,
+            dilation=1,
+            return_indices=False,
+            ceil_mode=False,
     ):
         super().__init__(
             kernel_size, stride, padding, dilation, return_indices, ceil_mode
@@ -435,10 +436,12 @@ class MaxPool2dStaticSamePadding(nn.MaxPool2d):
         assert image_size is not None
         ih, iw = (image_size, image_size) if isinstance(image_size, int) else image_size
         kh, kw = self.kernel_size
-        sh, sw = self.stride
+        sh, sw = (
+            (self.stride, self.stride) if isinstance(self.stride, int) else self.stride
+        )
         oh, ow = math.ceil(ih / sh), math.ceil(iw / sw)
-        pad_h = max((oh - 1) * self.stride[0] + (kh - 1) * self.dilation[0] + 1 - ih, 0)
-        pad_w = max((ow - 1) * self.stride[1] + (kw - 1) * self.dilation[1] + 1 - iw, 0)
+        pad_h = max((oh - 1) * sh + (kh - 1) * self.dilation[0] + 1 - ih, 0)
+        pad_w = max((ow - 1) * sw + (kw - 1) * self.dilation[1] + 1 - iw, 0)
         if pad_h > 0 or pad_w > 0:
             self.static_padding = nn.ZeroPad2d(
                 (pad_w // 2, pad_w - pad_w // 2, pad_h // 2, pad_h - pad_h // 2)
@@ -565,12 +568,12 @@ class BlockDecoder(object):
 
 
 def efficientnet(
-    width_coefficient=None,
-    depth_coefficient=None,
-    dropout_rate=0.2,
-    drop_connect_rate=0.2,
-    image_size=None,
-    num_classes=1,
+        width_coefficient=None,
+        depth_coefficient=None,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        image_size=None,
+        num_classes=1,
 ):
     """Creates a efficientnet model."""
 
