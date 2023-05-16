@@ -144,7 +144,7 @@ class MBConvBlock(nn.Module):
         )
         if (
             self.id_skip
-            and self._block_args.stride == 1
+            and self._block_args.conv_stride == 1
             and input_filters == output_filters
         ):
             # The combination of skip connection and drop connect brings about stochastic depth.
@@ -245,7 +245,7 @@ class EfficientNet(nn.Module):
         # Final linear layer
         # self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
         self._dropout = nn.Dropout(self._global_params.dropout_rate)
-        self._fc = nn.Linear(out_channels, self._global_params.num_classes)
+        self._fc = nn.Linear(5280, self._global_params.num_classes)
 
         # set activation to memory efficient swish by default
         self._swish = MemoryEfficientSwish()
@@ -352,7 +352,7 @@ class EfficientNet(nn.Module):
         x = self.extract_features(inputs)
 
         # Pooling and final linear layer
-        x = self._avg_pooling(x)
+        # x = self._avg_pooling(x)
         # x = x.view(bs, -1)
 
         x = x.flatten(start_dim=1)
