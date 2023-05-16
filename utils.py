@@ -60,7 +60,8 @@ BlockArgs = collections.namedtuple(
         "num_repeat",
         "conv_kernel_size",
         "pool_kernel_size",
-        "stride",
+        "conv_stride",
+        "pool_stride",
         "expand_ratio",
         "input_filters",
         "output_filters",
@@ -516,7 +517,8 @@ class BlockDecoder(object):
             expand_ratio=int(options["e"]),
             id_skip=("noskip" not in block_string),
             se_ratio=float(options["se"]) if "se" in options else None,
-            stride=(int(options["sh"]), int(options["sw"])),
+            conv_stride=(int(options["csh"]), int(options["csw"])),
+            pool_stride=(int(options["psh"]), int(options["psw"])),
         )
 
     @staticmethod
@@ -528,8 +530,10 @@ class BlockDecoder(object):
             "ckw%d" % block.conv_kernel_size[1],
             "pkh%d" % block.pool_kernel_size[0],
             "pkw%d" % block.pool_kernel_size[1],
-            "sh%d" % block.stride[0],
-            "sw%d" % block.stride[1],
+            "csh%d" % block.conv_stride[0],
+            "psh%d" % block.pool_stride[0],
+            "csw%d" % block.conv_stride[1],
+            "psw%d" % block.pool_stride[1],
             # "s%d%d" % (block.strides[0], block.strides[1]),
             "e%s" % block.expand_ratio,
             "i%d" % block.input_filters,
@@ -584,9 +588,9 @@ def efficientnet(
     """Creates a efficientnet model."""
 
     blocks_args = [
-        "r1_ckh5_ckw1_pkh3_pkw1_sh3_sw1_e1_i2_o4_se0.25",
-        "r1_ckh3_ckw1_pkh2_pkw1_sh2_sw1_e1_i4_o8_se0.25",
-        "r1_ckh3_ckw3_pkh2_pkw2_sh2_sw2_e1_i8_o16_se0.25",
+        "r1_ckh5_ckw1_pkh3_pkw1_csh1_csw1_psh3_psw1_e1_i2_o4_se0.25",
+        "r1_ckh3_ckw1_pkh2_pkw1_csh1_csw1_psh2_psw1_e1_i4_o8_se0.25",
+        "r1_ckh3_ckw3_pkh2_pkw2_csh1_csw1_psh2_psw2_e1_i8_o16_se0.25",
         # 'r3_k3_s22_e6_i40_o80_se0.25',
         # 'r3_k5_s11_e6_i80_o112_se0.25',
         # 'r4_k5_s22_e6_i112_o192_se0.25',

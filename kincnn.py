@@ -60,7 +60,8 @@ class MBConvBlock(nn.Module):
         # Depthwise convolution phase
         ck = self._block_args.conv_kernel_size
         pk = self._block_args.pool_kernel_size
-        s = self._block_args.stride
+        cs = self._block_args.conv_stride
+        ps = self._block_args.pool_stride
         Conv2d = partial(Conv2dStaticSamePadding, image_size=image_size)
         MaxPool2d = partial(MaxPool2dStaticSamePadding, image_size=image_size)
         self._depthwise_conv = Conv2d(
@@ -74,8 +75,8 @@ class MBConvBlock(nn.Module):
         self._bn1 = nn.BatchNorm2d(
             num_features=oup, momentum=self._bn_mom, eps=self._bn_eps
         )
-        self._depthwise_max_pooling = MaxPool2d(kernel_size=pk, stride=s)
-        image_size = calculate_output_image_size(image_size, s)
+        self._depthwise_max_pooling = MaxPool2d(kernel_size=pk, stride=ps)
+        image_size = calculate_output_image_size(image_size, ps)
 
         # Squeeze and Excitation layer, if desired
         if self.has_se:
@@ -239,7 +240,7 @@ class EfficientNet(nn.Module):
         )
 
         # Final linear layer
-        self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
+        # self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
         self._dropout = nn.Dropout(self._global_params.dropout_rate)
         self._fc = nn.Linear(out_channels, self._global_params.num_classes)
 
