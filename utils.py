@@ -293,48 +293,6 @@ class Conv2dDynamicSamePadding(nn.Conv2d):
             self.groups,
         )
 
-
-# class Conv2dNonPadding(nn.Conv2d):
-#     """2D Convolutions like TensorFlow, for a fixed image size"""
-#
-#     def __init__(
-#         self,
-#         in_channels,
-#         out_channels,
-#         kernel_size,
-#         stride=1,
-#         image_size=None,
-#         **kwargs
-#     ):
-#         super().__init__(in_channels, out_channels, kernel_size, stride, **kwargs)
-#         self.stride = self.stride if len(self.stride) == 2 else [self.stride[0]] * 2
-#
-#         # Calculate padding based on image size and save it
-#         assert image_size is not None
-#         ih, iw = image_size if type(image_size) == list else [image_size, image_size]
-#         # print(self.weight)
-#         print(type(self.weight))
-#         print(self.weight.shape)
-#         kh, kw = self.weight.size()[-2:]
-#         print(kh, kw)
-#         sh, sw = self.stride
-#         oh, ow = math.ceil(ih / sh), math.ceil(iw / sw)
-#         self.static_padding = nn.Identity()
-#
-#     def forward(self, x):
-#         x = self.static_padding(x)
-#         x = F.conv2d(
-#             x,
-#             self.weight,
-#             self.bias,
-#             self.stride,
-#             self.padding,
-#             self.dilation,
-#             self.groups,
-#         )
-#         return x
-
-
 class Conv2dStaticSamePadding(nn.Conv2d):
     """2D Convolutions like TensorFlow's 'SAME' mode, with the given input image size.
     The padding mudule is calculated in construction function, then used in forward.
@@ -407,6 +365,9 @@ def get_same_padding_maxPool2d(image_size=None):
 class MaxPool2dDynamicSamePadding(nn.MaxPool2d):
     """2D MaxPooling like TensorFlow's 'SAME' mode, with a dynamic image size.
     The padding is operated in forward function by calculating dynamically.
+    """
+    """
+    2023.05.16 수정
     """
 
     def __init__(
@@ -614,9 +575,9 @@ def efficientnet(
     """Creates a efficientnet model."""
 
     blocks_args = [
-        "r1_kh8_kw2_sh2_sw2_e2_i8_o16_se0.25",
-        "r1_kh8_kw3_sh2_sw1_e2_i16_o32_se0.25",
-        "r1_kh6_kw3_sh2_sw2_e2_i32_o64_se0.25",
+        "r1_kh5_kw1_sh1_sw1_e2_i8_o16_se0.25",
+        "r1_kh3_kw1_sh1_sw1_e2_i16_o32_se0.25",
+        "r1_kh3_kw3_sh1_sw1_e2_i32_o64_se0.25",
         # 'r3_k3_s22_e6_i40_o80_se0.25',
         # 'r3_k5_s11_e6_i80_o112_se0.25',
         # 'r4_k5_s22_e6_i112_o192_se0.25',

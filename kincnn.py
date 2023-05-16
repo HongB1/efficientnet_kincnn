@@ -104,24 +104,24 @@ class MBConvBlock(nn.Module):
         # Expansion and Depthwise Convolution
         x = inputs
         if self._block_args.expand_ratio != 1:
-            x = self._expand_conv(inputs)
+            x = self._expand_conv(inputs) #1
             x = self._bn0(x)
             x = self._swish(x)
 
-        x = self._depthwise_conv(x)
+        x = self._depthwise_conv(x) #2
         x = self._bn1(x)
         x = self._swish(x)
 
         # Squeeze and Excitation
         if self.has_se:
             x_squeezed = F.adaptive_avg_pool2d(x, 1)
-            x_squeezed = self._se_reduce(x_squeezed)
+            x_squeezed = self._se_reduce(x_squeezed) #3
             x_squeezed = self._swish(x_squeezed)
-            x_squeezed = self._se_expand(x_squeezed)
+            x_squeezed = self._se_expand(x_squeezed) #4
             x = torch.sigmoid(x_squeezed) * x
 
         # Pointwise Convolution
-        x = self._project_conv(x)
+        x = self._project_conv(x) #5
         x = self._bn2(x)
 
         # Skip connection and drop connect
@@ -180,12 +180,12 @@ class EfficientNet(nn.Module):
             3, self._global_params
         )  # number of output channels
         self._conv_stem = Conv2d(
-            in_channels, out_channels, kernel_size=(15, 1), stride=(2, 1), bias=False
+            in_channels, out_channels, kernel_size=(15, 1), stride=(2, 1), bias=False # !TODO 커널, 스트라이드 수정하기
         )
         self._bn0 = nn.BatchNorm2d(
             num_features=out_channels, momentum=bn_mom, eps=bn_eps
         )
-        image_size = calculate_output_image_size(image_size, stride=2)
+        image_size = calculate_output_image_size(image_size, stride=(2, 1)) # ! TODO
 
         # Build blocks
         self._blocks = nn.ModuleList([])
@@ -195,7 +195,6 @@ class EfficientNet(nn.Module):
                 input_filters=round_filters(
                     block_args.input_filters, self._global_params
                 ),
-                # input_filters=8,
                 output_filters=round_filters(
                     block_args.output_filters, self._global_params
                 ),
@@ -227,7 +226,7 @@ class EfficientNet(nn.Module):
         )
 
         # Final linear layer
-        # self._avg_pooling = nn.AdaptiveAvgPool2d(1) <-- 원본
+        self._avg_pooling = nn.AdaptiveAvgPool2d(1) # <-- 원본
         self._dropout = nn.Dropout(self._global_params.dropout_rate)
         self._fc = nn.Linear(self.define_last_fcn(), self._global_params.num_classes)
 
@@ -337,12 +336,10 @@ class EfficientNet(nn.Module):
         # Pooling and final linear layer
         x = self._avg_pooling(x)
         # x = x.view(bs, -1)
-        # print(x.shape)
 
         x = x.flatten(start_dim=1)
         x = self._dropout(x)
         x = self._fc(x)
-        # print(x.shape)
 
         return torch.sigmoid(x)
 
