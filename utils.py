@@ -510,7 +510,7 @@ class BlockDecoder(object):
         # "pool_kernel_size",
         return BlockArgs(
             conv_kernel_size=(int(options["ckh"]), int(options["ckw"])),
-            pool_kernel_size=(int(options["pkh"]), int(options["pkw"])),
+            pool_kernel_size=(int(options["pkh"]), int(options["pkw"])) if int(options["pkh"]) else None,
             num_repeat=int(options["r"]),
             input_filters=int(options["i"]),
             output_filters=int(options["o"]),

@@ -69,14 +69,16 @@ class MBConvBlock(nn.Module):
             out_channels=oup,
             groups=oup,  # groups makes it depthwise
             kernel_size=ck,
-            stride=1,
+            stride=cs,
             bias=False,
         )
+        image_size = calculate_output_image_size(image_size, cs)
         self._bn1 = nn.BatchNorm2d(
             num_features=oup, momentum=self._bn_mom, eps=self._bn_eps
         )
-        self._depthwise_max_pooling = MaxPool2d(kernel_size=pk, stride=ps)
-        image_size = calculate_output_image_size(image_size, ps)
+        if pk:
+            self._depthwise_max_pooling = MaxPool2d(kernel_size=pk, stride=ps)
+            image_size = calculate_output_image_size(image_size, ps)
 
         # Squeeze and Excitation layer, if desired
         if self.has_se:
@@ -119,7 +121,8 @@ class MBConvBlock(nn.Module):
         x = self._depthwise_conv(x)  # 2
         # x = partial()
         x = self._bn1(x)
-        x = self._depthwise_max_pooling(x)
+        if self._block_args.pool_kernel_size:
+            x = self._depthwise_max_pooling(x)
         x = self._swish(x)
 
         # Squeeze and Excitation
