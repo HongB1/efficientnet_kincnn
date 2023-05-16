@@ -11,7 +11,7 @@ from utils import (Conv2dStaticSamePadding, MemoryEfficientSwish, Swish,
                    calculate_output_image_size, drop_connect,
                    efficientnet_params, get_model_params,
                    get_same_padding_conv2d, load_pretrained_weights,
-                   round_filters, round_repeats)
+                   round_filters, round_repeats, MaxPool2dStaticSamePadding)
 
 # Author: HongbiKim (github username)
 # Github repo: https://github.com/lukemelas/EfficientNet-PyTorch
@@ -46,7 +46,7 @@ class MBConvBlock(nn.Module):
         if self._block_args.expand_ratio != 1:
             Conv2d = partial(Conv2dStaticSamePadding, image_size=image_size)
             self._expand_conv = Conv2d(
-                in_channels=inp, out_channels=oup, kernel_size=1, bias=False
+                in_channels=inp, out_channels=oup, kernel_size=1, bias=False # kernel_size 건드리지 말기
             )
             self._bn0 = nn.BatchNorm2d(
                 num_features=oup, momentum=self._bn_mom, eps=self._bn_eps
@@ -109,6 +109,7 @@ class MBConvBlock(nn.Module):
             x = self._swish(x)
 
         x = self._depthwise_conv(x) #2
+        # x = partial()
         x = self._bn1(x)
         x = self._swish(x)
 
@@ -180,12 +181,14 @@ class EfficientNet(nn.Module):
             3, self._global_params
         )  # number of output channels
         self._conv_stem = Conv2d(
-            in_channels, out_channels, kernel_size=(15, 1), stride=(2, 1), bias=False # !TODO 커널, 스트라이드 수정하기
+            in_channels, out_channels, kernel_size=(5, 1), stride=(1, 1), bias=False # !TODO 커널, 스트라이드 수정하기
         )
         self._bn0 = nn.BatchNorm2d(
             num_features=out_channels, momentum=bn_mom, eps=bn_eps
         )
-        image_size = calculate_output_image_size(image_size, stride=(2, 1)) # ! TODO
+        image_size = calculate_output_image_size(image_size, stride=(1, 1)) # ! TODO
+        self._max_pooling = partial(MaxPool2dStaticSamePadding, image_size=image_size)
+        # image_size =
 
         # Build blocks
         self._blocks = nn.ModuleList([])
@@ -311,6 +314,7 @@ class EfficientNet(nn.Module):
         x = self._conv_stem(inputs)
         x = self._bn0(x)
         x = self._swish(x)
+        x = self._max_pooling(x)
 
         # Blocks
         for idx, block in enumerate(self._blocks):

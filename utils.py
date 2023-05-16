@@ -421,7 +421,7 @@ class MaxPool2dStaticSamePadding(nn.MaxPool2d):
 
     def __init__(self, kernel_size, stride, image_size=None, **kwargs):
         super().__init__(kernel_size, stride, **kwargs)
-        self.stride = [self.stride] * 2 if isinstance(self.stride, int) else self.stride
+        # self.stride = [self.stride] * 2 if isinstance(self.stride, int) else self.stride
         self.kernel_size = (
             [self.kernel_size] * 2
             if isinstance(self.kernel_size, int)
@@ -575,9 +575,9 @@ def efficientnet(
     """Creates a efficientnet model."""
 
     blocks_args = [
-        "r1_kh5_kw1_sh1_sw1_e2_i8_o16_se0.25",
-        "r1_kh3_kw1_sh1_sw1_e2_i16_o32_se0.25",
-        "r1_kh3_kw3_sh1_sw1_e2_i32_o64_se0.25",
+        "r1_kh5_kw1_sh1_sw1_e1_i8_o16_se0.25",
+        "r1_kh3_kw1_sh1_sw1_e1_i16_o32_se0.25",
+        "r1_kh3_kw3_sh1_sw1_e1_i32_o64_se0.25",
         # 'r3_k3_s22_e6_i40_o80_se0.25',
         # 'r3_k5_s11_e6_i80_o112_se0.25',
         # 'r4_k5_s22_e6_i112_o192_se0.25',
