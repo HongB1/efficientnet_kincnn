@@ -7,11 +7,11 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from utils import (Conv2dStaticSamePadding, MemoryEfficientSwish, Swish,
-                   calculate_output_image_size, drop_connect,
-                   efficientnet_params, get_model_params,
+from utils import (Conv2dStaticSamePadding, MaxPool2dStaticSamePadding,
+                   MemoryEfficientSwish, Swish, calculate_output_image_size,
+                   drop_connect, efficientnet_params, get_model_params,
                    get_same_padding_conv2d, load_pretrained_weights,
-                   round_filters, round_repeats, MaxPool2dStaticSamePadding)
+                   round_filters, round_repeats)
 
 # Author: HongbiKim (github username)
 # Github repo: https://github.com/lukemelas/EfficientNet-PyTorch
@@ -47,7 +47,10 @@ class MBConvBlock(nn.Module):
             Conv2d = partial(Conv2dStaticSamePadding, image_size=image_size)
             MaxPool2d = partial(MaxPool2dStaticSamePadding, image_size=image_size)
             self._expand_conv = Conv2d(
-                in_channels=inp, out_channels=oup, kernel_size=1, bias=False # kernel_size 건드리지 말기
+                in_channels=inp,
+                out_channels=oup,
+                kernel_size=1,
+                bias=False,  # kernel_size 건드리지 말기
             )
             self._bn0 = nn.BatchNorm2d(
                 num_features=oup, momentum=self._bn_mom, eps=self._bn_eps
@@ -107,11 +110,11 @@ class MBConvBlock(nn.Module):
         # Expansion and Depthwise Convolution
         x = inputs
         if self._block_args.expand_ratio != 1:
-            x = self._expand_conv(inputs) #1
+            x = self._expand_conv(inputs)  # 1
             x = self._bn0(x)
             x = self._swish(x)
 
-        x = self._depthwise_conv(x) #2
+        x = self._depthwise_conv(x)  # 2
         # x = partial()
         x = self._bn1(x)
         x = self._depthwise_max_pooling(x)
@@ -120,13 +123,13 @@ class MBConvBlock(nn.Module):
         # Squeeze and Excitation
         if self.has_se:
             x_squeezed = F.adaptive_avg_pool2d(x, 1)
-            x_squeezed = self._se_reduce(x_squeezed) #3
+            x_squeezed = self._se_reduce(x_squeezed)  # 3
             x_squeezed = self._swish(x_squeezed)
-            x_squeezed = self._se_expand(x_squeezed) #4
+            x_squeezed = self._se_expand(x_squeezed)  # 4
             x = torch.sigmoid(x_squeezed) * x
 
         # Pointwise Convolution
-        x = self._project_conv(x) #5
+        x = self._project_conv(x)  # 5
         x = self._bn2(x)
 
         # Skip connection and drop connect
@@ -186,14 +189,13 @@ class EfficientNet(nn.Module):
             3, self._global_params
         )  # number of output channels
         self._conv_stem = Conv2d(
-            in_channels, out_channels, kernel_size=(5, 1), stride=(1, 1), bias=False)
+            in_channels, out_channels, kernel_size=(5, 1), stride=(1, 1), bias=False
+        )
         self._bn0 = nn.BatchNorm2d(
             num_features=out_channels, momentum=bn_mom, eps=bn_eps
         )
-        image_size = calculate_output_image_size(image_size, stride=(1, 1)) # ! TODO
-        self._max_pooling = MaxPool2d(
-            kernel_size=(2, 1), stride=(2, 1)
-        )
+        image_size = calculate_output_image_size(image_size, stride=(1, 1))  # ! TODO
+        self._max_pooling = MaxPool2d(kernel_size=(2, 1), stride=(2, 1))
         image_size = calculate_output_image_size(image_size, stride=(2, 1))
 
         # Build blocks
@@ -235,7 +237,7 @@ class EfficientNet(nn.Module):
         )
 
         # Final linear layer
-        self._avg_pooling = nn.AdaptiveAvgPool2d(1) # <-- 원본
+        self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
         self._dropout = nn.Dropout(self._global_params.dropout_rate)
         self._fc = nn.Linear(out_channels, self._global_params.num_classes)
 

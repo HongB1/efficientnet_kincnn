@@ -256,14 +256,14 @@ class Conv2dDynamicSamePadding(nn.Conv2d):
     # => p = (i-1)*s+((k-1)*d+1)-i
 
     def __init__(
-            self,
-            in_channels,
-            out_channels,
-            kernel_size,
-            stride=1,
-            dilation=1,
-            groups=1,
-            bias=True,
+        self,
+        in_channels,
+        out_channels,
+        kernel_size,
+        stride=1,
+        dilation=1,
+        groups=1,
+        bias=True,
     ):
         super().__init__(
             in_channels, out_channels, kernel_size, stride, 0, dilation, groups, bias
@@ -306,13 +306,13 @@ class Conv2dStaticSamePadding(nn.Conv2d):
     """
 
     def __init__(
-            self,
-            in_channels,
-            out_channels,
-            kernel_size,
-            stride=1,
-            image_size=None,
-            **kwargs
+        self,
+        in_channels,
+        out_channels,
+        kernel_size,
+        stride=1,
+        image_size=None,
+        **kwargs
     ):
         super().__init__(in_channels, out_channels, kernel_size, stride, **kwargs)
 
@@ -367,18 +367,19 @@ class MaxPool2dDynamicSamePadding(nn.MaxPool2d):
     """2D MaxPooling like TensorFlow's 'SAME' mode, with a dynamic image size.
     The padding is operated in forward function by calculating dynamically.
     """
+
     """
     2023.05.16 수정
     """
 
     def __init__(
-            self,
-            kernel_size,
-            stride,
-            padding=0,
-            dilation=1,
-            return_indices=False,
-            ceil_mode=False,
+        self,
+        kernel_size,
+        stride,
+        padding=0,
+        dilation=1,
+        return_indices=False,
+        ceil_mode=False,
     ):
         super().__init__(
             kernel_size, stride, padding, dilation, return_indices, ceil_mode
@@ -568,12 +569,12 @@ class BlockDecoder(object):
 
 
 def efficientnet(
-        width_coefficient=None,
-        depth_coefficient=None,
-        dropout_rate=0.2,
-        drop_connect_rate=0.2,
-        image_size=None,
-        num_classes=1,
+    width_coefficient=None,
+    depth_coefficient=None,
+    dropout_rate=0.2,
+    drop_connect_rate=0.2,
+    image_size=None,
+    num_classes=1,
 ):
     """Creates a efficientnet model."""
 
