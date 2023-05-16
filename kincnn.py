@@ -58,7 +58,8 @@ class MBConvBlock(nn.Module):
             # image_size = calculate_output_image_size(image_size, 1) <-- this wouldn't modify image_size
 
         # Depthwise convolution phase
-        k = self._block_args.kernel_size
+        ck = self._block_args.conv_kernel_size
+        pk = self._block_args.pool_kernel_size
         s = self._block_args.stride
         Conv2d = partial(Conv2dStaticSamePadding, image_size=image_size)
         MaxPool2d = partial(MaxPool2dStaticSamePadding, image_size=image_size)
@@ -66,14 +67,14 @@ class MBConvBlock(nn.Module):
             in_channels=oup,
             out_channels=oup,
             groups=oup,  # groups makes it depthwise
-            kernel_size=k,
+            kernel_size=ck,
             stride=1,
             bias=False,
         )
         self._bn1 = nn.BatchNorm2d(
             num_features=oup, momentum=self._bn_mom, eps=self._bn_eps
         )
-        self._depthwise_max_pooling = MaxPool2d(kernel_size=k, stride=s)
+        self._depthwise_max_pooling = MaxPool2d(kernel_size=pk, stride=s)
         image_size = calculate_output_image_size(image_size, s)
 
         # Squeeze and Excitation layer, if desired
@@ -185,9 +186,10 @@ class EfficientNet(nn.Module):
 
         # Stem
         in_channels = 1  # rgb # 이 부분 수정했음
-        out_channels = round_filters(
-            3, self._global_params
-        )  # number of output channels
+        out_channels = 8
+        # out_channels = round_filters(
+        #     3, self._global_params
+        # )  # number of output channels
         self._conv_stem = Conv2d(
             in_channels, out_channels, kernel_size=(5, 1), stride=(1, 1), bias=False
         )
