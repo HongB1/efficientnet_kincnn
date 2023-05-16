@@ -45,6 +45,7 @@ class MBConvBlock(nn.Module):
         )  # number of output channels
         if self._block_args.expand_ratio != 1:
             Conv2d = partial(Conv2dStaticSamePadding, image_size=image_size)
+            MaxPool2d = partial(MaxPool2dStaticSamePadding, image_size=image_size)
             self._expand_conv = Conv2d(
                 in_channels=inp, out_channels=oup, kernel_size=1, bias=False # kernel_size 건드리지 말기
             )
@@ -57,17 +58,19 @@ class MBConvBlock(nn.Module):
         k = self._block_args.kernel_size
         s = self._block_args.stride
         Conv2d = partial(Conv2dStaticSamePadding, image_size=image_size)
+        MaxPool2d = partial(MaxPool2dStaticSamePadding, image_size=image_size)
         self._depthwise_conv = Conv2d(
             in_channels=oup,
             out_channels=oup,
             groups=oup,  # groups makes it depthwise
             kernel_size=k,
-            stride=s,
+            stride=1,
             bias=False,
         )
         self._bn1 = nn.BatchNorm2d(
             num_features=oup, momentum=self._bn_mom, eps=self._bn_eps
         )
+        self._depthwise_max_pooling = MaxPool2d(kernel_size=k, stride=s)
         image_size = calculate_output_image_size(image_size, s)
 
         # Squeeze and Excitation layer, if desired
@@ -111,6 +114,7 @@ class MBConvBlock(nn.Module):
         x = self._depthwise_conv(x) #2
         # x = partial()
         x = self._bn1(x)
+        x = self._depthwise_max_pooling(x)
         x = self._swish(x)
 
         # Squeeze and Excitation
@@ -174,6 +178,7 @@ class EfficientNet(nn.Module):
         # Get static or dynamic convolution depending on image size
         image_size = global_params.image_size
         Conv2d = partial(Conv2dStaticSamePadding, image_size=image_size)
+        MaxPool2d = partial(MaxPool2dStaticSamePadding, image_size=image_size)
 
         # Stem
         in_channels = 1  # rgb # 이 부분 수정했음
@@ -181,14 +186,15 @@ class EfficientNet(nn.Module):
             3, self._global_params
         )  # number of output channels
         self._conv_stem = Conv2d(
-            in_channels, out_channels, kernel_size=(5, 1), stride=(1, 1), bias=False # !TODO 커널, 스트라이드 수정하기
-        )
+            in_channels, out_channels, kernel_size=(5, 1), stride=(1, 1), bias=False)
         self._bn0 = nn.BatchNorm2d(
             num_features=out_channels, momentum=bn_mom, eps=bn_eps
         )
         image_size = calculate_output_image_size(image_size, stride=(1, 1)) # ! TODO
-        self._max_pooling = partial(MaxPool2dStaticSamePadding, image_size=image_size)
-        # image_size =
+        self._max_pooling = MaxPool2d(
+            kernel_size=(2, 1), stride=(2, 1)
+        )
+        image_size = calculate_output_image_size(image_size, stride=(2, 1))
 
         # Build blocks
         self._blocks = nn.ModuleList([])
@@ -313,8 +319,8 @@ class EfficientNet(nn.Module):
         # Stem
         x = self._conv_stem(inputs)
         x = self._bn0(x)
-        x = self._swish(x)
         x = self._max_pooling(x)
+        x = self._swish(x)
 
         # Blocks
         for idx, block in enumerate(self._blocks):
