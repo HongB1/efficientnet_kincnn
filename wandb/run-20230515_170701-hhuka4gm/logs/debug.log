@@ -1,0 +1,26 @@
+2023-05-15 17:07:01,362 INFO    MainThread:3663315 [wandb_setup.py:_flush():68] Configure stats pid to 3663315
+2023-05-15 17:07:01,362 INFO    MainThread:3663315 [wandb_setup.py:_flush():68] Loading settings from /home/hb/.config/wandb/settings
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_setup.py:_flush():68] Loading settings from /home/hb/python/efficientnet_kincnn/wandb/settings
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_setup.py:_flush():68] Loading settings from environment variables: {'_require_service': 'True'}
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_setup.py:_flush():68] Inferring run settings from compute environment: {'program_relpath': 'DeepPhospho.py', 'program': '/home/hb/python/efficientnet_kincnn/DeepPhospho.py'}
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_init.py:_log_setup():478] Logging user logs to /home/hb/python/efficientnet_kincnn/wandb/run-20230515_170701-hhuka4gm/logs/debug.log
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_init.py:_log_setup():479] Logging internal logs to /home/hb/python/efficientnet_kincnn/wandb/run-20230515_170701-hhuka4gm/logs/debug-internal.log
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_init.py:init():518] calling init triggers
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_init.py:init():521] wandb.init called with sweep_config: {}
+config: {'gpu_num': '0', 'batch_size': 1024, 'n_epoch': 500, 'defalut_learning_rate': 0.001, 'fold_num': 5, 'scheduler_patience': 7, 'scheduler_factor': 0.7, 'erls_patience': 25, 'dataset': 'transfer_learning_1', 'pretrain_fold_num': '0', 'model': 'efficientnet-phospho-B-15', 'save_dir': '/home/hb/python/efficientnet_kincnn/saved_model/0515/DeepPP_transfer_learning_1_1706_bs1024_weight0'}
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_init.py:init():571] starting backend
+2023-05-15 17:07:01,363 INFO    MainThread:3663315 [wandb_init.py:init():575] setting up manager
+2023-05-15 17:07:01,367 INFO    MainThread:3663315 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-05-15 17:07:01,370 INFO    MainThread:3663315 [wandb_init.py:init():582] backend started and connected
+2023-05-15 17:07:01,372 INFO    MainThread:3663315 [wandb_init.py:init():670] updated telemetry
+2023-05-15 17:07:01,376 INFO    MainThread:3663315 [wandb_init.py:init():710] communicating run to backend with 60.0 second timeout
+2023-05-15 17:07:01,977 INFO    MainThread:3663315 [wandb_run.py:_on_init():2121] communicating current version
+2023-05-15 17:07:02,019 INFO    MainThread:3663315 [wandb_run.py:_on_init():2125] got version response upgrade_message: "wandb version 0.15.2 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2023-05-15 17:07:02,019 INFO    MainThread:3663315 [wandb_init.py:init():758] starting run threads in backend
+2023-05-15 17:07:07,381 INFO    MainThread:3663315 [wandb_run.py:_console_start():2101] atexit reg
+2023-05-15 17:07:07,382 INFO    MainThread:3663315 [wandb_run.py:_redirect():1959] redirect: SettingsConsole.WRAP_RAW
+2023-05-15 17:07:07,382 INFO    MainThread:3663315 [wandb_run.py:_redirect():2024] Wrapping output streams.
+2023-05-15 17:07:07,382 INFO    MainThread:3663315 [wandb_run.py:_redirect():2046] Redirects installed.
+2023-05-15 17:07:07,383 INFO    MainThread:3663315 [wandb_init.py:init():798] run started, returning control to user process
+2023-05-15 17:07:22,852 WARNING MsgRouterThr:3663315 [router.py:message_loop():77] message_loop has been closed

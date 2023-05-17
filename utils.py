@@ -58,8 +58,10 @@ BlockArgs = collections.namedtuple(
     "BlockArgs",
     [
         "num_repeat",
-        "kernel_size",
-        "stride",
+        "conv_kernel_size",
+        "pool_kernel_size",
+        "conv_stride",
+        "pool_stride",
         "expand_ratio",
         "input_filters",
         "output_filters",
@@ -294,47 +296,6 @@ class Conv2dDynamicSamePadding(nn.Conv2d):
         )
 
 
-# class Conv2dNonPadding(nn.Conv2d):
-#     """2D Convolutions like TensorFlow, for a fixed image size"""
-#
-#     def __init__(
-#         self,
-#         in_channels,
-#         out_channels,
-#         kernel_size,
-#         stride=1,
-#         image_size=None,
-#         **kwargs
-#     ):
-#         super().__init__(in_channels, out_channels, kernel_size, stride, **kwargs)
-#         self.stride = self.stride if len(self.stride) == 2 else [self.stride[0]] * 2
-#
-#         # Calculate padding based on image size and save it
-#         assert image_size is not None
-#         ih, iw = image_size if type(image_size) == list else [image_size, image_size]
-#         # print(self.weight)
-#         print(type(self.weight))
-#         print(self.weight.shape)
-#         kh, kw = self.weight.size()[-2:]
-#         print(kh, kw)
-#         sh, sw = self.stride
-#         oh, ow = math.ceil(ih / sh), math.ceil(iw / sw)
-#         self.static_padding = nn.Identity()
-#
-#     def forward(self, x):
-#         x = self.static_padding(x)
-#         x = F.conv2d(
-#             x,
-#             self.weight,
-#             self.bias,
-#             self.stride,
-#             self.padding,
-#             self.dilation,
-#             self.groups,
-#         )
-#         return x
-
-
 class Conv2dStaticSamePadding(nn.Conv2d):
     """2D Convolutions like TensorFlow's 'SAME' mode, with the given input image size.
     The padding mudule is calculated in construction function, then used in forward.
@@ -409,6 +370,10 @@ class MaxPool2dDynamicSamePadding(nn.MaxPool2d):
     The padding is operated in forward function by calculating dynamically.
     """
 
+    """
+    2023.05.16 수정
+    """
+
     def __init__(
         self,
         kernel_size,
@@ -460,7 +425,7 @@ class MaxPool2dStaticSamePadding(nn.MaxPool2d):
 
     def __init__(self, kernel_size, stride, image_size=None, **kwargs):
         super().__init__(kernel_size, stride, **kwargs)
-        self.stride = [self.stride] * 2 if isinstance(self.stride, int) else self.stride
+        # self.stride = [self.stride] * 2 if isinstance(self.stride, int) else self.stride
         self.kernel_size = (
             [self.kernel_size] * 2
             if isinstance(self.kernel_size, int)
@@ -474,10 +439,12 @@ class MaxPool2dStaticSamePadding(nn.MaxPool2d):
         assert image_size is not None
         ih, iw = (image_size, image_size) if isinstance(image_size, int) else image_size
         kh, kw = self.kernel_size
-        sh, sw = self.stride
+        sh, sw = (
+            (self.stride, self.stride) if isinstance(self.stride, int) else self.stride
+        )
         oh, ow = math.ceil(ih / sh), math.ceil(iw / sw)
-        pad_h = max((oh - 1) * self.stride[0] + (kh - 1) * self.dilation[0] + 1 - ih, 0)
-        pad_w = max((ow - 1) * self.stride[1] + (kw - 1) * self.dilation[1] + 1 - iw, 0)
+        pad_h = max((oh - 1) * sh + (kh - 1) * self.dilation[0] + 1 - ih, 0)
+        pad_w = max((ow - 1) * sw + (kw - 1) * self.dilation[1] + 1 - iw, 0)
         if pad_h > 0 or pad_w > 0:
             self.static_padding = nn.ZeroPad2d(
                 (pad_w // 2, pad_w - pad_w // 2, pad_h // 2, pad_h - pad_h // 2)
@@ -509,7 +476,7 @@ def efficientnet_params(model_name):
     params_dict = {
         # Coefficients:   width,depth,res,dropout
         "efficientnet-phospho-A-15": (1.0, 1.0, [4128, 15], 0.4),
-        "efficientnet-phospho-B-15": (1.0, 1.0, [263, 15], 0.7),
+        "KINCNN": (1.0, 1.0, [263, 15], 0.7),
         "efficientnet-HLA-B-9": (1.0, 1.0, [356, 15], 0.2),
         "efficientnet-HLA-C-9": (1.0, 1.0, [338, 9], 0.2),
         "efficientnet-HLA-A-10": (1.0, 1.0, [356, 15], 0.2),
@@ -539,16 +506,19 @@ class BlockDecoder(object):
         # assert ("s" in options and len(options["s"]) == 1) or (
         #     len(options["s"]) == 2 and options["s"][0] == options["s"][1]
         # )
-
+        # "conv_kernel_size",
+        # "pool_kernel_size",
         return BlockArgs(
-            kernel_size=(int(options["kh"]), int(options["kw"])),
+            conv_kernel_size=(int(options["ckh"]), int(options["ckw"])),
+            pool_kernel_size=(int(options["pkh"]), int(options["pkw"])) if int(options["pkh"]) else None,
             num_repeat=int(options["r"]),
             input_filters=int(options["i"]),
             output_filters=int(options["o"]),
             expand_ratio=int(options["e"]),
             id_skip=("noskip" not in block_string),
             se_ratio=float(options["se"]) if "se" in options else None,
-            stride=(int(options["sh"]), int(options["sw"])),
+            conv_stride=(int(options["csh"]), int(options["csw"])),
+            pool_stride=(int(options["psh"]), int(options["psw"])),
         )
 
     @staticmethod
@@ -556,10 +526,14 @@ class BlockDecoder(object):
         """Encodes a block to a string."""
         args = [
             "r%d" % block.num_repeat,
-            "kh%d" % block.kernel_size[0],
-            "kw%d" % block.kernel_size[1],
-            "sh%d" % block.stride[0],
-            "sw%d" % block.stride[1],
+            "ckh%d" % block.conv_kernel_size[0],
+            "ckw%d" % block.conv_kernel_size[1],
+            "pkh%d" % block.pool_kernel_size[0],
+            "pkw%d" % block.pool_kernel_size[1],
+            "csh%d" % block.conv_stride[0],
+            "psh%d" % block.pool_stride[0],
+            "csw%d" % block.conv_stride[1],
+            "psw%d" % block.pool_stride[1],
             # "s%d%d" % (block.strides[0], block.strides[1]),
             "e%s" % block.expand_ratio,
             "i%d" % block.input_filters,
@@ -606,7 +580,7 @@ class BlockDecoder(object):
 def efficientnet(
     width_coefficient=None,
     depth_coefficient=None,
-    dropout_rate=0.2,
+    dropout_rate=0.5,
     drop_connect_rate=0.2,
     image_size=None,
     num_classes=1,
@@ -614,9 +588,9 @@ def efficientnet(
     """Creates a efficientnet model."""
 
     blocks_args = [
-        "r1_kh8_kw2_sh2_sw2_e2_i8_o16_se0.25",
-        "r1_kh8_kw3_sh2_sw1_e2_i16_o32_se0.25",
-        "r1_kh6_kw3_sh2_sw2_e2_i32_o64_se0.25",
+        "r1_ckh3_ckw1_pkh0_pkw1_csh1_csw1_psh3_psw1_e1_i8_o16_se0.25",
+        # "r1_ckh3_ckw1_pkh0_pkw0_csh1_csw1_psh2_psw1_e1_i4_o8_se0.25",
+        # "r1_ckh3_ckw3_pkh2_pkw2_csh1_csw1_psh2_psw2_e1_i8_o16_se0.25",
         # 'r3_k3_s22_e6_i40_o80_se0.25',
         # 'r3_k5_s11_e6_i80_o112_se0.25',
         # 'r4_k5_s22_e6_i112_o192_se0.25',

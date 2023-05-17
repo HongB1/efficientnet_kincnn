@@ -1,0 +1,15 @@
+{'gpu_num': '0', 'batch_size': 1024, 'n_epoch': 500, 'defalut_learning_rate': 0.001, 'fold_num': 5, 'scheduler_patience': 7, 'scheduler_factor': 0.7, 'erls_patience': 25, 'dataset': 'transfer_learning_1', 'pretrain_fold_num': '0', 'model': 'efficientnet-phospho-B-15', 'save_dir': '/home/hb/python/efficientnet_kincnn/saved_model/0515/DeepPP_transfer_learning_1_1705_bs1024_weight0'}
+FOLD 0
+--------------------------------
+Traceback (most recent call last):
+  File "/home/hb/python/efficientnet_kincnn/DeepPhospho.py", line 294, in <module>
+    train_model_5cv()
+  File "/home/hb/python/efficientnet_kincnn/DeepPhospho.py", line 105, in train_model_5cv
+    model = efficientnet_kincnn.EfficientNet.from_name(f'{config.model}')
+  File "/home/hb/python/efficientnet_kincnn/../efficientnet_kincnn/kincnn.py", line 355, in from_name
+    return cls(blocks_args, global_params)
+  File "/home/hb/python/efficientnet_kincnn/../efficientnet_kincnn/kincnn.py", line 188, in __init__
+    image_size = calculate_output_image_size(image_size, stride=2)
+  File "/home/hb/python/efficientnet_kincnn/utils.py", line 212, in calculate_output_image_size
+    sh, sw = stride if type(stride) == (list) or (tuple) else [stride, stride]
+TypeError: cannot unpack non-iterable int object
