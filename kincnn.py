@@ -119,7 +119,6 @@ class MBConvBlock(nn.Module):
             x = self._swish(x)
 
         x = self._depthwise_conv(x)  # 2
-        # x = partial()
         x = self._bn1(x)
         if self._block_args.pool_kernel_size:
             x = self._depthwise_max_pooling(x)
@@ -189,21 +188,25 @@ class EfficientNet(nn.Module):
         MaxPool2d = partial(MaxPool2dStaticSamePadding, image_size=image_size)
 
         # Stem
-        in_channels = 1  # rgb # 이 부분 수정했음
+        in_channels = 1
         out_channels = 8
-        # out_channels = round_filters(
-        #     3, self._global_params
-        # )  # number of output channels
+        conv_kernel_size = (5, 1)
+        conv_stride = (1, 1)
+        pool_kernel_size = (2, 1)
+        pool_stride = pool_kernel_size
+
         self._conv_stem = Conv2d(
-            in_channels, out_channels, kernel_size=(5, 1), stride=(1, 1), bias=False
+            in_channels, out_channels, kernel_size=conv_kernel_size, stride=conv_stride, bias=False
         )
         self._bn0 = nn.BatchNorm2d(
             num_features=out_channels, momentum=bn_mom, eps=bn_eps
         )
-        image_size = calculate_output_image_size(image_size, stride=(1, 1))  # ! TODO
-        self._max_pooling = MaxPool2d(kernel_size=(2, 1), stride=(2, 1))
-        image_size = calculate_output_image_size(image_size, stride=(2, 1))
-
+        image_size = calculate_output_image_size(image_size, stride=conv_stride)
+        if pool_kernel_size:
+            self._max_pooling = MaxPool2d(kernel_size=pool_kernel_size, stride=pool_stride)
+            image_size = calculate_output_image_size(image_size, stride=pool_stride)
+        else:
+            self._max_pooling = None
         # Build blocks
         self._blocks = nn.ModuleList([])
         for block_args in self._blocks_args:
@@ -244,8 +247,9 @@ class EfficientNet(nn.Module):
 
         # Final linear layer
         # self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
+        out_features = image_size[0] * image_size[1] * out_channels
         self._dropout = nn.Dropout(self._global_params.dropout_rate)
-        self._fc = nn.Linear(5280, self._global_params.num_classes)
+        self._fc = nn.Linear(out_features, self._global_params.num_classes)
 
         # set activation to memory efficient swish by default
         self._swish = MemoryEfficientSwish()
@@ -327,7 +331,8 @@ class EfficientNet(nn.Module):
         # Stem
         x = self._conv_stem(inputs)
         x = self._bn0(x)
-        x = self._max_pooling(x)
+        if self._max_pooling:
+            x = self._max_pooling(x)
         x = self._swish(x)
 
         # Blocks
