@@ -588,14 +588,13 @@ def efficientnet(
     """Creates a efficientnet model."""
 
     blocks_args = [
-        "r1_ckh5_ckw5_pkh0_pkw1_csh2_csw1_psh3_psw1_e1_i8_o16_se0.25",
-        # "r1_ckh3_ckw1_pkh0_pkw0_csh1_csw1_psh2_psw1_e1_i4_o8_se0.25",
-        # "r1_ckh3_ckw3_pkh2_pkw2_csh1_csw1_psh2_psw2_e1_i8_o16_se0.25",
-        # 'r3_k3_s22_e6_i40_o80_se0.25',
-        # 'r3_k5_s11_e6_i80_o112_se0.25',
-        # 'r4_k5_s22_e6_i112_o192_se0.25',
-        # 'r1_k3_s11_e6_i192_o320_se0.25',
-        # 'r1_k3_s11_e6_i24_o48_se0.25',
+        "r1_ckh5_ckw1_pkh0_pkw1_csh1_csw1_psh3_psw1_e1_i8_o16_se0.5",
+        "r1_ckh5_ckw1_pkh0_pkw0_csh2_csw1_psh2_psw1_e1_i16_o32_se0.5",
+        "r1_ckh3_ckw1_pkh0_pkw2_csh2_csw1_psh2_psw2_e1_i32_o64_se0.5",
+        'r1_ckh3_ckw1_pkh0_pkw2_csh1_csw1_psh2_psw2_e1_i64_o128_se0.5',
+        # "r3_ckh5_ckw5_pkh0_pkw2_csh1_csw1_psh2_psw2_e6_i60_o90_se0.25",      
+        # "r4_ckh5_ckw5_pkh0_pkw2_csh2_csw2_psh2_psw2_e6_i90_o120_se0.25",
+        # "r1_ckh3_ckw3_pkh0_pkw2_csh1_csw1_psh2_psw2_e6_i120_o200_se0.25",
     ]
     blocks_args = BlockDecoder.decode(blocks_args)
 

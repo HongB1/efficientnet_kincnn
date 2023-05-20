@@ -232,7 +232,7 @@ class EfficientNet(nn.Module):
             image_size = calculate_output_image_size(image_size, block_args.conv_stride)
             if block_args.num_repeat > 1:  # modify block_args to keep same output size
                 block_args = block_args._replace(
-                    input_filters=block_args.output_filters, stride=1
+                    input_filters=block_args.output_filters, conv_stride=(1, 1)
                 )
             for _ in range(block_args.num_repeat - 1):
                 self._blocks.append(

@@ -25,6 +25,6 @@
 #     config.pretrain_fold_num = sys.argv[10]
 #     config.model = f'efficientnet-phospho-B-15'
 #     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho4.py 3 1024 500 1e-3 5 7 0.7 50 kincnn4 0
+python3 /home/hb/python/efficientnet_kincnn/DeepPhospho4.py 3 2048 500 1e-3 5 7 0.7 50 kincnn4 0
 
 

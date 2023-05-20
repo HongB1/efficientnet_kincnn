@@ -16,22 +16,22 @@ import pickle
 
 def prepare_dataset(dataset_mode):
     
-    # if dataset_mode == 'transfer_learning_1':
+    if dataset_mode == 'kincnn1':
         
-    df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train1.pkl")
-    print(df.iloc[-1:])
-    # elif dataset_mode == 'transfer_learning_2':
+        df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train1.pkl")
+        print(df.iloc[-1:])
+    elif dataset_mode == 'kincnn2':
         
-    #     df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train2.pkl")
-    #     print(df.iloc[-1:])
-    # elif dataset_mode == 'transfer_learning_3':
+        df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train2.pkl")
+        print(df.iloc[-1:])
+    elif dataset_mode == 'kincnn3':
         
-    #     df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train3.pkl")
-    #     print(df.iloc[-1:])
-    # elif dataset_mode == 'transfer_learning_4':
+        df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train3.pkl")
+        print(df.iloc[-1:])
+    elif dataset_mode == 'kincnn4':
         
-    #     df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train4.pkl")
-    #     print(df.iloc[-1:])
+        df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train4.pkl")
+        print(df.iloc[-1:])
     # elif dataset_mode == 'transfer_learning_5':
         
     #     df = pd.read_pickle("/home/hb/python/phospho/data/required/0308_final_train_test/train5.pkl")

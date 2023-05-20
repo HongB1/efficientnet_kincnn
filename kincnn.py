@@ -119,7 +119,6 @@ class MBConvBlock(nn.Module):
             x = self._swish(x)
 
         x = self._depthwise_conv(x)  # 2
-        # x = partial()
         x = self._bn1(x)
         if self._block_args.pool_kernel_size:
             x = self._depthwise_max_pooling(x)
@@ -233,7 +232,7 @@ class EfficientNet(nn.Module):
             image_size = calculate_output_image_size(image_size, block_args.conv_stride)
             if block_args.num_repeat > 1:  # modify block_args to keep same output size
                 block_args = block_args._replace(
-                    input_filters=block_args.output_filters, stride=1
+                    input_filters=block_args.output_filters, conv_stride=(1, 1)
                 )
             for _ in range(block_args.num_repeat - 1):
                 self._blocks.append(
@@ -254,6 +253,7 @@ class EfficientNet(nn.Module):
 
         # Final linear layer
         # self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
+        out_features = image_size[0] * image_size[1] * out_channels
         self._dropout = nn.Dropout(self._global_params.dropout_rate)
         self._fc = nn.Linear(out_features, self._global_params.num_classes)
 

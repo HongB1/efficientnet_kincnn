@@ -35,7 +35,7 @@ if __name__ == "__main__":
     config.dataset = sys.argv[9]
     config.pretrain_fold_num = sys.argv[10]
     config.model = f'KINCNN'
-    config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+    config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
 
     os.makedirs(f'{config.save_dir}', exist_ok=True)
 

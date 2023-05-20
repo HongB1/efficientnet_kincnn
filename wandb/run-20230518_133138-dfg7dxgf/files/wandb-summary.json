@@ -1,0 +1,1 @@
+{"0 fold train": {"loss": 0.3474828026124409}, "0 fold val": {"loss": 0.38740018755197525}, "0 fold learning_rate": 0.00024009999999999998, "_timestamp": 1684384420.770457, "_runtime": 121.91515111923218, "_step": 111, "_wandb": {"runtime": 121}}
