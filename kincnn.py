@@ -122,40 +122,40 @@ class MBConvBlock(nn.Module):
 
         # Expansion and Depthwise Convolution
         x = inputs
-        print('MBConvBlock Start:', x.shape)
+        # print('MBConvBlock Start:', x.shape)
         if self._block_args.expand_ratio != 1:
             x = self._expand_conv(inputs)  # 1
             x = self._bn0(x)
             x = self._swish(x)
-            print('Expansion and Depthwise Convolution: ', x.shape)
+            # print('Expansion and Depthwise Convolution: ', x.shape)
         if self._depthwise_conv:
             x = self._depthwise_conv(x)  # 2
-            print('After Depthwise conv:', x.shape)
+            # print('After Depthwise conv:', x.shape)
         else:
             x = self._depthwise_conv_non_padding(x)  # 2
-            print('After Depthwise conv non padding:', x.shape)
+            # print('After Depthwise conv non padding:', x.shape)
 
         x = self._bn1(x)
         if self._block_args.pool_kernel_size:
             x = self._depthwise_max_pooling(x)
-            print('After Depthwise Maxpooling:', x.shape)
+            # print('After Depthwise Maxpooling:', x.shape)
         x = self._swish(x)
 
         # Squeeze and Excitation
         if self.has_se:
             x_squeezed = F.adaptive_avg_pool2d(x, 1)
-            print('[SE] After adaptive Avgpooling:', x.shape)
+            # print('[SE] After adaptive Avgpooling:', x.shape)
             x_squeezed = self._se_reduce(x_squeezed)  # 3
-            print('[SE] After SE reduce:', x.shape)
+            # print('[SE] After SE reduce:', x.shape)
             x_squeezed = self._swish(x_squeezed)
             x_squeezed = self._se_expand(x_squeezed)  # 4
-            print('[SE] After SE expand:', x.shape)
+            # print('[SE] After SE expand:', x.shape)
             x = torch.sigmoid(x_squeezed) * x
-            print('[SE] torch.sigmoid(x_squeezed) * x:', x.shape)
+            # print('[SE] torch.sigmoid(x_squeezed) * x:', x.shape)
 
         # Pointwise Convolution
         x = self._project_conv(x)  # 5
-        print('[SE] After adaptive Avgpooling:', x.shape)
+        # print('[SE] After adaptive Avgpooling:', x.shape)
         x = self._bn2(x)
 
         # Skip connection and drop connect
@@ -171,9 +171,9 @@ class MBConvBlock(nn.Module):
             # The combination of skip connection and drop connect brings about stochastic depth.
             if drop_connect_rate:
                 x = drop_connect(x, p=drop_connect_rate, training=self.training)
-                print('After drop_connect:', x.shape)
+                # print('After drop_connect:', x.shape)
             x = x + inputs  # skip connection
-            print('After skip connection:', x.shape)
+            # print('After skip connection:', x.shape)
         return x
 
     def set_swish(self, memory_efficient=True):
