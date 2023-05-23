@@ -22,6 +22,8 @@ from EarlyStopping import EarlyStopping
 import wandb
 from matplotlib import pyplot as plt
 import numpy as np
+# from utils import CosineAnnealingWarmUpRestarts
+from cosine_annealing_warmup import CosineAnnealingWarmupRestarts
 
 if __name__ == "__main__":
     config = AttrDict()
@@ -108,8 +110,9 @@ def train_model_5cv():
 
         '''optimizer & loss'''
 
-        optimizer = RAdam(model.parameters(), lr=config.defalut_learning_rate)
-        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=config.scheduler_factor, patience=config.scheduler_patience, threshold=0.0001, cooldown=0, min_lr=0, verbose=1)
+        optimizer = RAdam(model.parameters(), lr=0)
+        # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=config.scheduler_factor, patience=config.scheduler_patience, threshold=0.0001, cooldown=0, min_lr=0, verbose=1)
+        scheduler = CosineAnnealingWarmupRestarts(optimizer, first_cycle_steps=50, cycle_mult=2, max_lr=0.1, min_lr=0.000001, warmup_steps=20, gamma=0.5)
         criterion = nn.BCELoss()
         # criterion = nn.CrossEntropyLoss()
         print("lr: ", optimizer.param_groups[0]['lr'])
