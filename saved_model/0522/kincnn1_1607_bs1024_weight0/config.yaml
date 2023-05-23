@@ -1,0 +1,15 @@
+&id001 !!python/object/new:phospho_preprocessing.AttrDict
+dictitems:
+  batch_size: 1024
+  dataset: kincnn1
+  defalut_learning_rate: 0.001
+  erls_patience: 50
+  fold_num: 5
+  gpu_num: '0'
+  model: KINCNN
+  n_epoch: 500
+  pretrain_fold_num: '0'
+  save_dir: /home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn1_1607_bs1024_weight0
+  scheduler_factor: 0.7
+  scheduler_patience: 7
+state: *id001
