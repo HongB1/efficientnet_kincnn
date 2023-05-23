@@ -1,0 +1,7 @@
+{'gpu_num': '0', 'batch_size': 1024, 'n_epoch': 500, 'defalut_learning_rate': 0.001, 'fold_num': 5, 'scheduler_patience': 7, 'scheduler_factor': 0.7, 'erls_patience': 50, 'dataset': 'kincnn1', 'pretrain_fold_num': '0', 'model': 'KINCNN', 'save_dir': '/home/hb/python/efficientnet_kincnn/saved_model/0523/kincnn1_0006_bs1024_weight0'}
+FOLD 0
+--------------------------------
+lr:  1e-06
+------------------------------------------------------------
+Epoch 1/500
+  0%|                                                 | 0/500 [00:00<?, ?it/s]

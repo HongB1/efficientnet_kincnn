@@ -1,0 +1,182 @@
+2023-05-22 18:04:51,715 INFO    MainThread:73952 [internal.py:wandb_internal():90] W&B internal server running at pid: 73952, started at: 2023-05-22 18:04:51.714836
+2023-05-22 18:04:51,717 INFO    WriterThread:73952 [datastore.py:open_for_write():75] open: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/run-272g5stj.wandb
+2023-05-22 18:04:51,720 DEBUG   SenderThread:73952 [sender.py:send():236] send: header
+2023-05-22 18:04:51,721 DEBUG   SenderThread:73952 [sender.py:send():236] send: run
+2023-05-22 18:04:52,081 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: check_version
+2023-05-22 18:04:52,084 INFO    SenderThread:73952 [dir_watcher.py:__init__():216] watching files in: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files
+2023-05-22 18:04:52,084 INFO    SenderThread:73952 [sender.py:_start_run_threads():815] run started: 272g5stj with start time 1684746291
+2023-05-22 18:04:52,084 DEBUG   SenderThread:73952 [sender.py:send():236] send: summary
+2023-05-22 18:04:52,085 INFO    SenderThread:73952 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2023-05-22 18:04:52,085 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: check_version
+2023-05-22 18:04:52,156 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: run_start
+2023-05-22 18:04:52,174 DEBUG   HandlerThread:73952 [meta.py:__init__():35] meta init
+2023-05-22 18:04:52,174 DEBUG   HandlerThread:73952 [meta.py:__init__():49] meta init done
+2023-05-22 18:04:52,174 DEBUG   HandlerThread:73952 [meta.py:probe():209] probe
+2023-05-22 18:04:52,182 DEBUG   HandlerThread:73952 [meta.py:_setup_git():199] setup git
+2023-05-22 18:04:52,195 DEBUG   HandlerThread:73952 [meta.py:_setup_git():206] setup git done
+2023-05-22 18:04:52,195 DEBUG   HandlerThread:73952 [meta.py:_save_code():87] save code
+2023-05-22 18:04:52,200 DEBUG   HandlerThread:73952 [meta.py:_save_code():108] save code done
+2023-05-22 18:04:52,200 DEBUG   HandlerThread:73952 [meta.py:_save_patches():125] save patches
+2023-05-22 18:04:52,291 DEBUG   HandlerThread:73952 [meta.py:_save_patches():167] save patches done
+2023-05-22 18:04:52,291 DEBUG   HandlerThread:73952 [meta.py:_save_pip():53] save pip
+2023-05-22 18:04:52,292 DEBUG   HandlerThread:73952 [meta.py:_save_pip():67] save pip done
+2023-05-22 18:04:52,293 DEBUG   HandlerThread:73952 [meta.py:_save_conda():74] save conda
+2023-05-22 18:04:52,294 ERROR   HandlerThread:73952 [meta.py:_save_conda():83] Error saving conda packages
+Traceback (most recent call last):
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/wandb/sdk/internal/meta.py", line 79, in _save_conda
+    subprocess.call(
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/subprocess.py", line 345, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/subprocess.py", line 966, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/subprocess.py", line 1842, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'conda'
+2023-05-22 18:04:52,296 DEBUG   HandlerThread:73952 [meta.py:_save_conda():84] save conda done
+2023-05-22 18:04:52,296 DEBUG   HandlerThread:73952 [meta.py:probe():247] probe done
+2023-05-22 18:04:52,340 DEBUG   SenderThread:73952 [sender.py:send():236] send: files
+2023-05-22 18:04:52,340 INFO    SenderThread:73952 [sender.py:_save_file():952] saving file wandb-metadata.json with policy now
+2023-05-22 18:04:52,341 INFO    SenderThread:73952 [sender.py:_save_file():952] saving file code/DeepPhospho.py with policy now
+2023-05-22 18:04:52,341 INFO    SenderThread:73952 [sender.py:_save_file():952] saving file diff.patch with policy now
+2023-05-22 18:04:52,349 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: stop_status
+2023-05-22 18:04:52,351 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: stop_status
+2023-05-22 18:04:52,614 DEBUG   SenderThread:73952 [sender.py:send():236] send: telemetry
+2023-05-22 18:04:52,615 DEBUG   SenderThread:73952 [sender.py:send():236] send: telemetry
+2023-05-22 18:04:52,615 DEBUG   SenderThread:73952 [sender.py:send():236] send: run
+2023-05-22 18:04:52,937 INFO    SenderThread:73952 [sender.py:send_run():711] updated run: 272g5stj
+2023-05-22 18:04:52,938 DEBUG   SenderThread:73952 [sender.py:send():236] send: telemetry
+2023-05-22 18:04:53,088 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/config.yaml
+2023-05-22 18:04:53,088 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_created():269] file/dir created: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/conda-environment.yaml
+2023-05-22 18:04:53,088 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_created():269] file/dir created: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/output.log
+2023-05-22 18:04:53,089 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_created():269] file/dir created: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/wandb-summary.json
+2023-05-22 18:04:53,089 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_created():269] file/dir created: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/requirements.txt
+2023-05-22 18:04:53,089 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_created():269] file/dir created: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/wandb-metadata.json
+2023-05-22 18:04:53,089 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_created():269] file/dir created: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/code/DeepPhospho.py
+2023-05-22 18:04:53,090 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_created():269] file/dir created: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/diff.patch
+2023-05-22 18:04:53,090 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_created():269] file/dir created: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/code
+2023-05-22 18:04:53,183 INFO    Thread-11 :73952 [upload_job.py:push():138] Uploaded file /tmp/tmpl31m99nlwandb/1hayam54-wandb-metadata.json
+2023-05-22 18:04:53,208 INFO    Thread-13 :73952 [upload_job.py:push():138] Uploaded file /tmp/tmpl31m99nlwandb/1nzw8hy1-diff.patch
+2023-05-22 18:04:53,218 INFO    Thread-12 :73952 [upload_job.py:push():138] Uploaded file /tmp/tmpl31m99nlwandb/18xu361g-code/DeepPhospho.py
+2023-05-22 18:04:54,085 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/output.log
+2023-05-22 18:04:54,864 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:54,864 DEBUG   SenderThread:73952 [sender.py:send():236] send: exit
+2023-05-22 18:04:54,865 INFO    SenderThread:73952 [sender.py:send_exit():372] handling exit code: 1
+2023-05-22 18:04:54,865 INFO    SenderThread:73952 [sender.py:send_exit():374] handling runtime: 2
+2023-05-22 18:04:54,865 INFO    SenderThread:73952 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2023-05-22 18:04:54,866 INFO    SenderThread:73952 [sender.py:send_exit():380] send defer
+2023-05-22 18:04:54,866 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:54,868 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:54,869 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 0
+2023-05-22 18:04:54,869 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:54,869 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 0
+2023-05-22 18:04:54,869 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 1
+2023-05-22 18:04:54,870 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:54,870 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 1
+2023-05-22 18:04:54,984 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:54,984 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:54,985 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 1
+2023-05-22 18:04:54,985 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 2
+2023-05-22 18:04:54,985 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:54,985 DEBUG   SenderThread:73952 [sender.py:send():236] send: stats
+2023-05-22 18:04:54,987 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:54,987 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 2
+2023-05-22 18:04:54,987 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:54,988 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 2
+2023-05-22 18:04:54,988 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 3
+2023-05-22 18:04:54,988 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:54,989 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 3
+2023-05-22 18:04:54,989 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:54,989 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 3
+2023-05-22 18:04:54,989 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 4
+2023-05-22 18:04:54,990 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:54,990 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 4
+2023-05-22 18:04:54,991 DEBUG   SenderThread:73952 [sender.py:send():236] send: summary
+2023-05-22 18:04:54,991 INFO    SenderThread:73952 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2023-05-22 18:04:54,992 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:54,992 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 4
+2023-05-22 18:04:54,992 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 5
+2023-05-22 18:04:54,993 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:54,993 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 5
+2023-05-22 18:04:54,993 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:54,993 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 5
+2023-05-22 18:04:55,086 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/output.log
+2023-05-22 18:04:55,086 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/wandb-summary.json
+2023-05-22 18:04:55,089 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:55,277 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 6
+2023-05-22 18:04:55,277 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:55,278 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:55,278 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 6
+2023-05-22 18:04:55,278 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:55,279 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 6
+2023-05-22 18:04:55,279 INFO    SenderThread:73952 [dir_watcher.py:finish():353] shutting down directory watcher
+2023-05-22 18:04:55,379 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,086 INFO    Thread-7  :73952 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/config.yaml
+2023-05-22 18:04:56,088 INFO    SenderThread:73952 [dir_watcher.py:finish():383] scan: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files
+2023-05-22 18:04:56,088 INFO    SenderThread:73952 [dir_watcher.py:finish():397] scan save: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/output.log output.log
+2023-05-22 18:04:56,088 INFO    SenderThread:73952 [dir_watcher.py:finish():397] scan save: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/config.yaml config.yaml
+2023-05-22 18:04:56,089 INFO    SenderThread:73952 [dir_watcher.py:finish():397] scan save: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/requirements.txt requirements.txt
+2023-05-22 18:04:56,101 INFO    SenderThread:73952 [dir_watcher.py:finish():397] scan save: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/wandb-metadata.json wandb-metadata.json
+2023-05-22 18:04:56,102 INFO    SenderThread:73952 [dir_watcher.py:finish():397] scan save: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/diff.patch diff.patch
+2023-05-22 18:04:56,102 INFO    SenderThread:73952 [dir_watcher.py:finish():397] scan save: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/wandb-summary.json wandb-summary.json
+2023-05-22 18:04:56,103 INFO    SenderThread:73952 [dir_watcher.py:finish():397] scan save: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/conda-environment.yaml conda-environment.yaml
+2023-05-22 18:04:56,117 INFO    SenderThread:73952 [dir_watcher.py:finish():397] scan save: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/code/DeepPhospho.py code/DeepPhospho.py
+2023-05-22 18:04:56,117 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 7
+2023-05-22 18:04:56,118 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:56,118 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:56,119 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 7
+2023-05-22 18:04:56,119 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:56,120 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 7
+2023-05-22 18:04:56,120 INFO    SenderThread:73952 [file_pusher.py:finish():171] shutting down file pusher
+2023-05-22 18:04:56,220 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,221 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:56,323 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,324 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:56,426 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,426 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:56,529 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,529 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:56,631 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,632 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:56,734 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,734 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:56,838 INFO    Thread-16 :73952 [upload_job.py:push():138] Uploaded file /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/requirements.txt
+2023-05-22 18:04:56,838 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,842 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:56,846 INFO    Thread-14 :73952 [upload_job.py:push():138] Uploaded file /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/output.log
+2023-05-22 18:04:56,849 INFO    Thread-17 :73952 [upload_job.py:push():138] Uploaded file /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/wandb-summary.json
+2023-05-22 18:04:56,895 INFO    Thread-15 :73952 [upload_job.py:push():138] Uploaded file /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/files/config.yaml
+2023-05-22 18:04:56,944 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:56,945 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:57,047 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:57,047 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:57,096 INFO    Thread-6 (_thread_body):73952 [sender.py:transition_state():393] send defer: 8
+2023-05-22 18:04:57,097 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:57,097 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 8
+2023-05-22 18:04:57,098 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:57,098 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 8
+2023-05-22 18:04:57,150 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:57,533 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 9
+2023-05-22 18:04:57,534 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:57,535 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:57,535 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 9
+2023-05-22 18:04:57,535 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:57,536 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 9
+2023-05-22 18:04:57,536 INFO    SenderThread:73952 [sender.py:transition_state():393] send defer: 10
+2023-05-22 18:04:57,537 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: defer
+2023-05-22 18:04:57,537 DEBUG   SenderThread:73952 [sender.py:send():236] send: final
+2023-05-22 18:04:57,538 INFO    HandlerThread:73952 [handler.py:handle_request_defer():163] handle defer: 10
+2023-05-22 18:04:57,538 DEBUG   SenderThread:73952 [sender.py:send():236] send: footer
+2023-05-22 18:04:57,538 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: defer
+2023-05-22 18:04:57,538 INFO    SenderThread:73952 [sender.py:send_request_defer():389] handle sender defer: 10
+2023-05-22 18:04:57,637 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: poll_exit
+2023-05-22 18:04:57,637 DEBUG   SenderThread:73952 [sender.py:send_request():250] send_request: poll_exit
+2023-05-22 18:04:57,637 INFO    SenderThread:73952 [file_pusher.py:join():176] waiting for file pusher
+2023-05-22 18:04:58,202 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: sampled_history
+2023-05-22 18:04:58,204 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: get_summary
+2023-05-22 18:04:58,205 DEBUG   HandlerThread:73952 [handler.py:handle_request():140] handle_request: shutdown
+2023-05-22 18:04:58,206 INFO    HandlerThread:73952 [handler.py:finish():806] shutting down handler
+2023-05-22 18:04:58,537 INFO    WriterThread:73952 [datastore.py:close():279] close: /home/hb/python/efficientnet_kincnn/wandb/run-20230522_180451-272g5stj/run-272g5stj.wandb
+2023-05-22 18:04:59,100 INFO    SenderThread:73952 [sender.py:finish():1114] shutting down sender
+2023-05-22 18:04:59,101 INFO    SenderThread:73952 [file_pusher.py:finish():171] shutting down file pusher
+2023-05-22 18:04:59,101 INFO    SenderThread:73952 [file_pusher.py:join():176] waiting for file pusher
+2023-05-22 18:04:59,104 INFO    MainThread:73952 [internal.py:handle_exit():80] Internal process exited

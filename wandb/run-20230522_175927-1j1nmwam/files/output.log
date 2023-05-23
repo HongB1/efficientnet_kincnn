@@ -1,0 +1,9 @@
+{'gpu_num': '1', 'batch_size': 1024, 'n_epoch': 500, 'defalut_learning_rate': 0.001, 'fold_num': 5, 'scheduler_patience': 7, 'scheduler_factor': 0.7, 'erls_patience': 50, 'dataset': 'kincnn2', 'pretrain_fold_num': '0', 'model': 'KINCNN', 'save_dir': '/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn2_1759_bs1024_weight0'}
+FOLD 0
+--------------------------------
+Traceback (most recent call last):
+  File "/home/hb/python/efficientnet_kincnn/DeepPhospho.py", line 297, in <module>
+    train_model_5cv()
+  File "/home/hb/python/efficientnet_kincnn/DeepPhospho.py", line 113, in train_model_5cv
+    scheduler = CosineAnnealingWarmUpRestarts(optimizer, T_0=50, T_mult=2, eta_min=0.000001, eta_max=0.1, T_up=15, gamma=0.5)
+TypeError: CosineAnnealingWarmUpRestarts.__init__() got an unexpected keyword argument 'eta_min'

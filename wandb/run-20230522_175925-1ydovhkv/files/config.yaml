@@ -1,0 +1,66 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.21
+    code_path: code/DeepPhospho.py
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.10.4
+    start_time: 1684745965
+    t:
+      1:
+      - 1
+      - 5
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 53
+      - 55
+      3:
+      - 16
+      - 17
+      4: 3.10.4
+      5: 0.12.21
+      8:
+      - 5
+batch_size:
+  desc: null
+  value: 1024
+dataset:
+  desc: null
+  value: kincnn1
+defalut_learning_rate:
+  desc: null
+  value: 0.001
+erls_patience:
+  desc: null
+  value: 50
+fold_num:
+  desc: null
+  value: 5
+gpu_num:
+  desc: null
+  value: '0'
+model:
+  desc: null
+  value: KINCNN
+n_epoch:
+  desc: null
+  value: 500
+pretrain_fold_num:
+  desc: null
+  value: '0'
+save_dir:
+  desc: null
+  value: /home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn1_1759_bs1024_weight0
+scheduler_factor:
+  desc: null
+  value: 0.7
+scheduler_patience:
+  desc: null
+  value: 7

@@ -1,0 +1,193 @@
+diff --git a/code/model_info.xlsx b/code/model_info.xlsx
+index d156840..a101eea 100644
+Binary files a/code/model_info.xlsx and b/code/model_info.xlsx differ
+diff --git a/gpu_0.sh b/gpu_0.sh
+deleted file mode 100755
+index f1a7e97..0000000
+--- a/gpu_0.sh
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#!/bin/bash
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-B 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural Normalize 512 500 1e-3 5 7 0.5 25 
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 10 Natural Normalize 512 500 1e-3 5 7 0.5 25
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural Normalize 512 500 1e-3df_test_st 5 7 0.5 25 
+-#     config.gpu_num = sys.argv[1]
+-#     config.batch_size = int(sys.argv[2])
+-#     config.n_epoch = int(sys.argv[3])
+-#     config.defalut_learning_rate = float(sys.argv[4])
+-#     config.fold_num = int(sys.argv[5])
+-#     config.scheduler_patience, config.scheduler_factor = int(sys.argv[6]), float(sys.argv[7])
+-#     config.erls_patience = int(sys.argv[8])
+-#     config.dataset = sys.argv[9]
+-#     config.pretrain_fold_num = sys.argv[10]
+-#     config.model = f'efficientnet-phospho-B-15'
+-#     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho.py 0 2048 500 1e-3 5 7 0.7 50 kincnn1 0
+-
+-
+diff --git a/gpu_1.sh b/gpu_1.sh
+deleted file mode 100755
+index 7e627a8..0000000
+--- a/gpu_1.sh
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#!/bin/bash
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-B 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural Normalize 512 500 1e-3 5 7 0.5 25 
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 10 Natural Normalize 512 500 1e-3 5 7 0.5 25
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural Normalize 512 500 1e-3df_test_st 5 7 0.5 25 
+-#     config.gpu_num = sys.argv[1]
+-#     config.batch_size = int(sys.argv[2])
+-#     config.n_epoch = int(sys.argv[3])
+-#     config.defalut_learning_rate = float(sys.argv[4])
+-#     config.fold_num = int(sys.argv[5])
+-#     config.scheduler_patience, config.scheduler_factor = int(sys.argv[6]), float(sys.argv[7])
+-#     config.erls_patience = int(sys.argv[8])
+-#     config.dataset = sys.argv[9]
+-#     config.pretrain_fold_num = sys.argv[10]
+-#     config.model = f'efficientnet-phospho-B-15'
+-#     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho2.py 1 2048 500 1e-3 5 7 0.7 50 kincnn2 0
+-
+-
+diff --git a/gpu_2.sh b/gpu_2.sh
+deleted file mode 100755
+index 05210d3..0000000
+--- a/gpu_2.sh
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#!/bin/bash
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-B 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural Normalize 512 500 1e-3 5 7 0.5 25 
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 10 Natural Normalize 512 500 1e-3 5 7 0.5 25
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural Normalize 512 500 1e-3df_test_st 5 7 0.5 25 
+-#     config.gpu_num = sys.argv[1]
+-#     config.batch_size = int(sys.argv[2])
+-#     config.n_epoch = int(sys.argv[3])
+-#     config.defalut_learning_rate = float(sys.argv[4])
+-#     config.fold_num = int(sys.argv[5])
+-#     config.scheduler_patience, config.scheduler_factor = int(sys.argv[6]), float(sys.argv[7])
+-#     config.erls_patience = int(sys.argv[8])
+-#     config.dataset = sys.argv[9]
+-#     config.pretrain_fold_num = sys.argv[10]
+-#     config.model = f'efficientnet-phospho-B-15'
+-#     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho3.py 2 2048 500 1e-3 5 7 0.7 50 kincnn3 0
+-
+-
+diff --git a/gpu_3.sh b/gpu_3.sh
+deleted file mode 100755
+index f78a5e4..0000000
+--- a/gpu_3.sh
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#!/bin/bash
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-B 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural Normalize 512 500 1e-3 5 7 0.5 25 
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 10 Natural Normalize 512 500 1e-3 5 7 0.5 25
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural Normalize 512 500 1e-3df_test_st 5 7 0.5 25 
+-#     config.gpu_num = sys.argv[1]
+-#     config.batch_size = int(sys.argv[2])
+-#     config.n_epoch = int(sys.argv[3])
+-#     config.defalut_learning_rate = float(sys.argv[4])
+-#     config.fold_num = int(sys.argv[5])
+-#     config.scheduler_patience, config.scheduler_factor = int(sys.argv[6]), float(sys.argv[7])
+-#     config.erls_patience = int(sys.argv[8])
+-#     config.dataset = sys.argv[9]
+-#     config.pretrain_fold_num = sys.argv[10]
+-#     config.model = f'efficientnet-phospho-B-15'
+-#     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho4.py 3 2048 500 1e-3 5 7 0.7 50 kincnn4 0
+-
+-
+diff --git a/utils.py b/utils.py
+index bbe80a4..2a83107 100644
+--- a/utils.py
++++ b/utils.py
+@@ -587,10 +587,10 @@ def efficientnet(
+ ):
+     """Creates a efficientnet model."""
+     blocks_args = [
+-        "r1_ckh5_ckw1_pkh0_pkw1_csh1_csw1_psh3_psw1_e1_i8_o16_se0.5",
+-        "r1_ckh5_ckw1_pkh0_pkw0_csh2_csw1_psh2_psw1_e1_i16_o32_se0.5",
+-        "r1_ckh3_ckw1_pkh0_pkw2_csh2_csw1_psh2_psw2_e1_i32_o64_se0.5",
+-        'r1_ckh3_ckw1_pkh0_pkw2_csh1_csw1_psh2_psw2_e1_i64_o128_se0.5',
++        "r1_ckh5_ckw1_pkh0_pkw1_csh1_csw1_psh3_psw1_e1_i8_o16_se0.1",
++        "r1_ckh5_ckw1_pkh0_pkw0_csh2_csw1_psh2_psw1_e1_i16_o32_se0.1",
++        "r1_ckh3_ckw1_pkh0_pkw2_csh2_csw1_psh2_psw2_e1_i32_o64_se0.1",
++        'r1_ckh3_ckw1_pkh0_pkw2_csh1_csw1_psh2_psw2_e1_i64_o128_se0.1',
+         # 'r3_k5_s11_e6_i80_o112_se0.25',
+         # 'r4_k5_s22_e6_i112_o192_se0.25',
+         # 'r1_k3_s11_e6_i192_o320_se0.25',
+diff --git a/wandb/debug-internal.log b/wandb/debug-internal.log
+index 79fca16..67ea6c5 120000
+--- a/wandb/debug-internal.log
++++ b/wandb/debug-internal.log
+@@ -1 +1 @@
+-run-20230518_171924-x8m3pldn/logs/debug-internal.log
+\ No newline at end of file
++run-20230521_165654-3lcq07hy/logs/debug-internal.log
+\ No newline at end of file
+diff --git a/wandb/debug.log b/wandb/debug.log
+index ce491a5..c1da82d 120000
+--- a/wandb/debug.log
++++ b/wandb/debug.log
+@@ -1 +1 @@
+-run-20230518_171924-x8m3pldn/logs/debug.log
+\ No newline at end of file
++run-20230521_165654-3lcq07hy/logs/debug.log
+\ No newline at end of file
+diff --git a/wandb/latest-run b/wandb/latest-run
+index bd2b586..1daa190 120000
+--- a/wandb/latest-run
++++ b/wandb/latest-run
+@@ -1 +1 @@
+-run-20230518_171924-x8m3pldn
+\ No newline at end of file
++run-20230521_165654-3lcq07hy
+\ No newline at end of file

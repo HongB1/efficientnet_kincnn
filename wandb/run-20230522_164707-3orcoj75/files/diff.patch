@@ -1,0 +1,1253 @@
+diff --git a/code/C4_evaluation.ipynb b/code/C4_evaluation.ipynb
+index 3256751..97f808b 100644
+--- a/code/C4_evaluation.ipynb
++++ b/code/C4_evaluation.ipynb
+@@ -99,16 +99,328 @@
+    "metadata": {},
+    "outputs": [
+     {
+-     "ename": "AttributeError",
+-     "evalue": "'NoneType' object has no attribute 'group'",
+-     "output_type": "error",
+-     "traceback": [
+-      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+-      "\u001b[0;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
+-      "Cell \u001b[0;32mIn[3], line 21\u001b[0m\n\u001b[1;32m     18\u001b[0m         auc_list\u001b[39m.\u001b[39mappend(\u001b[39mround\u001b[39m(auc, \u001b[39m4\u001b[39m))\n\u001b[1;32m     19\u001b[0m     \u001b[39mreturn\u001b[39;00m model_list, auc_list, filedir_list\n\u001b[0;32m---> 21\u001b[0m model_list, auc_list, filedir_list \u001b[39m=\u001b[39m calculate_auc(\u001b[39m'\u001b[39;49m\u001b[39m1919\u001b[39;49m\u001b[39m'\u001b[39;49m, \u001b[39m'\u001b[39;49m\u001b[39m0520\u001b[39;49m\u001b[39m'\u001b[39;49m)\n",
+-      "Cell \u001b[0;32mIn[3], line 14\u001b[0m, in \u001b[0;36mcalculate_auc\u001b[0;34m(time, day, filedir)\u001b[0m\n\u001b[1;32m     12\u001b[0m auc_list \u001b[39m=\u001b[39m []\n\u001b[1;32m     13\u001b[0m \u001b[39mfor\u001b[39;00m filedir \u001b[39min\u001b[39;00m filedir_list:\n\u001b[0;32m---> 14\u001b[0m     filedir_found \u001b[39m=\u001b[39m re\u001b[39m.\u001b[39;49msearch(\u001b[39m'\u001b[39;49m\u001b[39mDeepPP_(.+?)_\u001b[39;49m\u001b[39m'\u001b[39;49m, filedir)\u001b[39m.\u001b[39;49mgroup(\u001b[39m1\u001b[39m)\n\u001b[1;32m     15\u001b[0m     model \u001b[39m=\u001b[39m load_multiple_model(filedir, filedir_found)\n\u001b[1;32m     16\u001b[0m     model_list\u001b[39m.\u001b[39mappend(model)\n",
+-      "\u001b[0;31mAttributeError\u001b[0m: 'NoneType' object has no attribute 'group'"
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn1_1528_bs1024_weight0/1fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn1_1528_bs1024_weight0/2fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn1_1528_bs1024_weight0/3fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn1_1528_bs1024_weight0/4fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn1_1528_bs1024_weight0/0fold_best_model.pth\n"
++     ]
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "fee368e216e540b38a7cc7d9e10b0fd7",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "a721847d29934591b46b0a0a4bf300e7",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "db6f98efd97c48c3acbc060cc0040d3e",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "9cb09eb5ae344619a3386a2372b8b610",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "361d42ab33a945f9bf80e60bc47e4d7b",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn2_1528_bs1024_weight0/1fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn2_1528_bs1024_weight0/2fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn2_1528_bs1024_weight0/3fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn2_1528_bs1024_weight0/4fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn2_1528_bs1024_weight0/0fold_best_model.pth\n"
++     ]
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "e47e7d7f7f3147cc8f065156fc1079b5",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "0b573d2dc7ec4bce8ff4b4cff267bf8e",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "ce643ec622984cbd838bbce73c3d25cf",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "ab55ad2e388b4333b06398f72da99b80",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "36bf944576da4206afdec6d0d4fc7129",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn3_1528_bs1024_weight0/1fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn3_1528_bs1024_weight0/2fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn3_1528_bs1024_weight0/3fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn3_1528_bs1024_weight0/4fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn3_1528_bs1024_weight0/0fold_best_model.pth\n"
++     ]
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "8b8ba49163ba46918555a2384811bf0e",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "171745d53b5f40ba92d6c769efb26a1f",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "dc93792dc360429bb11431278b4b160d",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "6fc72ade883e42bdbde6f47a75d27815",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "987763f8ff8d4f79991fadd088c04567",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn4_1528_bs1024_weight0/1fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn4_1528_bs1024_weight0/2fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn4_1528_bs1024_weight0/3fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn4_1528_bs1024_weight0/4fold_best_model.pth\n",
++      "/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn4_1528_bs1024_weight0/0fold_best_model.pth\n"
+      ]
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "946f91e8ff5d4e33834c996b581b588a",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "1c71e1ffecaf4651a8d57ddfc1575680",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "52099b03a52345f39ea0aeb95d7ca610",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "a0c25ed2e34e44a49abe591f9dade74f",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "829f5d7a24654e28aac4430a3da65a30",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "  0%|          | 0/4 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
+     }
+    ],
+    "source": [
+@@ -119,7 +431,7 @@
+     "    save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{day}'\n",
+     "\n",
+     "    if not filedir :\n",
+-    "        filedir_list = [f'{save_dir}/kincnn{x}_{time}_bs2048_weight0' for x in range(1, 5)]\n",
++    "        filedir_list = [f'{save_dir}/kincnn{x}_{time}_bs1024_weight0' for x in range(1, 5)]\n",
+     "    else:\n",
+     "        filedir_list = [f'{filedir}']\n",
+     "    model_list = []\n",
+@@ -132,21 +444,21 @@
+     "        auc_list.append(round(auc, 4))\n",
+     "    return model_list, auc_list, filedir_list\n",
+     "\n",
+-    "model_list, auc_list, filedir_list = calculate_auc('1919', '0520')"
++    "model_list, auc_list, filedir_list = calculate_auc('1528', '0522')"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 11,
++   "execution_count": 4,
+    "metadata": {},
+    "outputs": [
+     {
+      "data": {
+       "text/plain": [
+-       "[0.8376, 0.8417, 0.8417, 0.8439]"
++       "[0.8309, 0.8376, 0.8376, 0.8369]"
+       ]
+      },
+-     "execution_count": 11,
++     "execution_count": 4,
+      "metadata": {},
+      "output_type": "execute_result"
+     }
+@@ -157,7 +469,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 12,
++   "execution_count": 5,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -199,7 +511,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 13,
++   "execution_count": 6,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -213,7 +525,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 14,
++   "execution_count": 7,
+    "metadata": {},
+    "outputs": [
+     {
+@@ -248,16 +560,16 @@
+        "      <th>MBconv0_kernel_size</th>\n",
+        "      <th>MBconv0_stride</th>\n",
+        "      <th>...</th>\n",
+-       "      <th>MBconv2_inp</th>\n",
+-       "      <th>MBconv2_oup</th>\n",
+-       "      <th>MBconv2_kernel_size</th>\n",
+-       "      <th>MBconv2_stride</th>\n",
+        "      <th>last_features</th>\n",
+        "      <th>model_path</th>\n",
+        "      <th>MBconv3_inp</th>\n",
+        "      <th>MBconv3_oup</th>\n",
+        "      <th>MBconv3_kernel_size</th>\n",
+        "      <th>MBconv3_stride</th>\n",
++       "      <th>MBconv4_inp</th>\n",
++       "      <th>MBconv4_kernel_size</th>\n",
++       "      <th>MBconv4_oup</th>\n",
++       "      <th>MBconv4_stride</th>\n",
+        "    </tr>\n",
+        "  </thead>\n",
+        "  <tbody>\n",
+@@ -274,16 +586,16 @@
+        "      <td>(5, 1)</td>\n",
+        "      <td>(1, 1)</td>\n",
+        "      <td>...</td>\n",
+-       "      <td>32</td>\n",
+-       "      <td>64</td>\n",
+-       "      <td>(3, 1)</td>\n",
+-       "      <td>(2, 1)</td>\n",
+        "      <td>3960</td>\n",
+        "      <td>0519/DeepPP_kincnn4_0001_bs1024_weight0</td>\n",
+        "      <td>NaN</td>\n",
+        "      <td>NaN</td>\n",
+        "      <td>NaN</td>\n",
+        "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>1</th>\n",
+@@ -298,16 +610,16 @@
+        "      <td>(5, 1)</td>\n",
+        "      <td>(1, 1)</td>\n",
+        "      <td>...</td>\n",
+-       "      <td>32</td>\n",
+-       "      <td>64</td>\n",
+-       "      <td>(3, 1)</td>\n",
+-       "      <td>(1, 1)</td>\n",
+        "      <td>7920</td>\n",
+        "      <td>0519/DeepPP_kincnn4_1400_bs1024_weight0</td>\n",
+        "      <td>NaN</td>\n",
+        "      <td>NaN</td>\n",
+        "      <td>NaN</td>\n",
+        "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2</th>\n",
+@@ -322,16 +634,16 @@
+        "      <td>(5, 1)</td>\n",
+        "      <td>(1, 1)</td>\n",
+        "      <td>...</td>\n",
+-       "      <td>32</td>\n",
+-       "      <td>64</td>\n",
+-       "      <td>(3, 1)</td>\n",
+-       "      <td>(1, 1)</td>\n",
+        "      <td>7920</td>\n",
+        "      <td>0519/DeepPP_kincnn4_1511_bs1024_weight0</td>\n",
+        "      <td>64.0</td>\n",
+        "      <td>128.0</td>\n",
+        "      <td>(5, 5)</td>\n",
+        "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>3</th>\n",
+@@ -346,16 +658,16 @@
+        "      <td>(5, 1)</td>\n",
+        "      <td>(1, 1)</td>\n",
+        "      <td>...</td>\n",
+-       "      <td>32</td>\n",
+-       "      <td>64</td>\n",
+-       "      <td>(3, 1)</td>\n",
+-       "      <td>(1, 1)</td>\n",
+        "      <td>7920</td>\n",
+        "      <td>0519/DeepPP_kincnn4_1736_bs1024_weight0</td>\n",
+        "      <td>64.0</td>\n",
+        "      <td>128.0</td>\n",
+        "      <td>(5, 3)</td>\n",
+        "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>4</th>\n",
+@@ -370,16 +682,16 @@
+        "      <td>(5, 1)</td>\n",
+        "      <td>(1, 1)</td>\n",
+        "      <td>...</td>\n",
+-       "      <td>32</td>\n",
+-       "      <td>64</td>\n",
+-       "      <td>(3, 1)</td>\n",
+-       "      <td>(2, 1)</td>\n",
+        "      <td>3960</td>\n",
+        "      <td>0519/DeepPP_kincnn4_1847_bs1024_weight0</td>\n",
+        "      <td>64.0</td>\n",
+        "      <td>128.0</td>\n",
+        "      <td>(5, 3)</td>\n",
+        "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>5</th>\n",
+@@ -394,16 +706,16 @@
+        "      <td>(5, 1)</td>\n",
+        "      <td>(1, 1)</td>\n",
+        "      <td>...</td>\n",
+-       "      <td>32</td>\n",
+-       "      <td>64</td>\n",
+-       "      <td>(3, 1)</td>\n",
+-       "      <td>(2, 1)</td>\n",
+        "      <td>3960</td>\n",
+        "      <td>0520/DeepPP_kincnn4_0039_bs1024_weight0</td>\n",
+        "      <td>64.0</td>\n",
+        "      <td>128.0</td>\n",
+        "      <td>(5, 1)</td>\n",
+        "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>6</th>\n",
+@@ -418,81 +730,411 @@
+        "      <td>(5, 1)</td>\n",
+        "      <td>(1, 1)</td>\n",
+        "      <td>...</td>\n",
+-       "      <td>32</td>\n",
+-       "      <td>64</td>\n",
+-       "      <td>(3, 1)</td>\n",
+-       "      <td>(2, 1)</td>\n",
+        "      <td>3960</td>\n",
+        "      <td>0520/DeepPP_kincnn4_1757_bs1024_weight0</td>\n",
+        "      <td>64.0</td>\n",
+        "      <td>128.0</td>\n",
+        "      <td>(3, 3)</td>\n",
+        "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>7</th>\n",
++       "      <td>84~88avg</td>\n",
++       "      <td>0.844575</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0520/DeepPP_kincnn4_1835_bs1024_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>8</th>\n",
++       "      <td>88~92avg</td>\n",
++       "      <td>0.836575</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>2040</td>\n",
++       "      <td>0520/kincnn4_1919_bs2048_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>9</th>\n",
++       "      <td>92~96avg</td>\n",
++       "      <td>0.838175</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0521/kincnn4_1617_bs2048_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>10</th>\n",
++       "      <td>96~100avg</td>\n",
++       "      <td>0.837200</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0521/kincnn4_1656_bs2048_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>11</th>\n",
++       "      <td>100~104avg</td>\n",
++       "      <td>0.835850</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0521/kincnn4_1733_bs2048_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>12</th>\n",
++       "      <td>104~108avg</td>\n",
++       "      <td>0.840200</td>\n",
++       "      <td>(7, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0521/kincnn4_1820_bs2048_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>13</th>\n",
++       "      <td>108~112avg</td>\n",
++       "      <td>0.844575</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0521/kincnn4_1905_bs1024_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>14</th>\n",
++       "      <td>112~116avg</td>\n",
++       "      <td>0.844575</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0521/kincnn4_1905_bs1024_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>15</th>\n",
++       "      <td>116~120avg</td>\n",
++       "      <td>0.835500</td>\n",
++       "      <td>(7, 3)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>16</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0522/kincnn4_1411_bs1024_weight0</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>128.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>16</th>\n",
++       "      <td>120~124avg</td>\n",
++       "      <td>0.837775</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>8</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>3960</td>\n",
++       "      <td>0522/kincnn4_1449_bs1024_weight0</td>\n",
++       "      <td>16.0</td>\n",
++       "      <td>32.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "      <td>NaN</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>17</th>\n",
++       "      <td>124~128avg</td>\n",
++       "      <td>0.835750</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>True</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>8</td>\n",
++       "      <td>8</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(1, 1)</td>\n",
++       "      <td>...</td>\n",
++       "      <td>2040</td>\n",
++       "      <td>0522/kincnn4_1528_bs1024_weight0</td>\n",
++       "      <td>16.0</td>\n",
++       "      <td>32.0</td>\n",
++       "      <td>(5, 1)</td>\n",
++       "      <td>(2, 1)</td>\n",
++       "      <td>32.0</td>\n",
++       "      <td>(3, 1)</td>\n",
++       "      <td>64.0</td>\n",
++       "      <td>(2, 1)</td>\n",
+        "    </tr>\n",
+        "  </tbody>\n",
+        "</table>\n",
+-       "<p>7 rows × 24 columns</p>\n",
++       "<p>18 rows × 28 columns</p>\n",
+        "</div>"
+       ],
+       "text/plain": [
+-       "       data       AUC conv_stem_kernel_size conv_stem_stride_size  \\\n",
+-       "0  56~60avg  0.839600                (3, 1)                (1, 1)   \n",
+-       "1  60~64avg  0.841550                (3, 1)                (1, 1)   \n",
+-       "2  64~68avg  0.837350                (3, 1)                (1, 1)   \n",
+-       "3  68~72avg  0.843225                (3, 1)                (1, 1)   \n",
+-       "4  72~76avg  0.843300                (3, 1)                (1, 1)   \n",
+-       "5  76~80avg  0.841200                (3, 1)                (1, 1)   \n",
+-       "6  80~84avg  0.841225                (3, 1)                (1, 1)   \n",
++       "          data       AUC conv_stem_kernel_size conv_stem_stride_size  \\\n",
++       "0     56~60avg  0.839600                (3, 1)                (1, 1)   \n",
++       "1     60~64avg  0.841550                (3, 1)                (1, 1)   \n",
++       "2     64~68avg  0.837350                (3, 1)                (1, 1)   \n",
++       "3     68~72avg  0.843225                (3, 1)                (1, 1)   \n",
++       "4     72~76avg  0.843300                (3, 1)                (1, 1)   \n",
++       "5     76~80avg  0.841200                (3, 1)                (1, 1)   \n",
++       "6     80~84avg  0.841225                (3, 1)                (1, 1)   \n",
++       "7     84~88avg  0.844575                (3, 1)                (1, 1)   \n",
++       "8     88~92avg  0.836575                (3, 1)                (1, 1)   \n",
++       "9     92~96avg  0.838175                (3, 1)                (1, 1)   \n",
++       "10   96~100avg  0.837200                (3, 1)                (1, 1)   \n",
++       "11  100~104avg  0.835850                (3, 1)                (1, 1)   \n",
++       "12  104~108avg  0.840200                (7, 1)                (1, 1)   \n",
++       "13  108~112avg  0.844575                (3, 1)                (1, 1)   \n",
++       "14  112~116avg  0.844575                (3, 1)                (1, 1)   \n",
++       "15  116~120avg  0.835500                (7, 3)                (1, 1)   \n",
++       "16  120~124avg  0.837775                (3, 1)                (1, 1)   \n",
++       "17  124~128avg  0.835750                (3, 1)                (1, 1)   \n",
+        "\n",
+-       "   conv_stem_pooling conv_stem_pooling_kernel_size  MBconv0_inp  MBconv0_oup  \\\n",
+-       "0               True                        (2, 1)            8           16   \n",
+-       "1               True                        (2, 1)            8           16   \n",
+-       "2               True                        (2, 1)            8           16   \n",
+-       "3               True                        (2, 1)            8           16   \n",
+-       "4               True                        (2, 1)            8           16   \n",
+-       "5               True                        (2, 1)            8           16   \n",
+-       "6               True                        (2, 1)            8           16   \n",
++       "    conv_stem_pooling conv_stem_pooling_kernel_size  MBconv0_inp  MBconv0_oup  \\\n",
++       "0                True                        (2, 1)            8           16   \n",
++       "1                True                        (2, 1)            8           16   \n",
++       "2                True                        (2, 1)            8           16   \n",
++       "3                True                        (2, 1)            8           16   \n",
++       "4                True                        (2, 1)            8           16   \n",
++       "5                True                        (2, 1)            8           16   \n",
++       "6                True                        (2, 1)            8           16   \n",
++       "7                True                        (2, 1)            8           16   \n",
++       "8                True                        (2, 1)            8           16   \n",
++       "9                True                        (2, 1)            8           16   \n",
++       "10               True                        (2, 1)            8           16   \n",
++       "11               True                        (2, 1)            8           16   \n",
++       "12               True                        (2, 1)            8           16   \n",
++       "13               True                        (2, 1)            8           16   \n",
++       "14               True                        (2, 1)            8           16   \n",
++       "15               True                        (2, 1)            8           16   \n",
++       "16               True                        (2, 1)            8            8   \n",
++       "17               True                        (2, 1)            8            8   \n",
+        "\n",
+-       "  MBconv0_kernel_size MBconv0_stride  ...  MBconv2_inp  MBconv2_oup  \\\n",
+-       "0              (5, 1)         (1, 1)  ...           32           64   \n",
+-       "1              (5, 1)         (1, 1)  ...           32           64   \n",
+-       "2              (5, 1)         (1, 1)  ...           32           64   \n",
+-       "3              (5, 1)         (1, 1)  ...           32           64   \n",
+-       "4              (5, 1)         (1, 1)  ...           32           64   \n",
+-       "5              (5, 1)         (1, 1)  ...           32           64   \n",
+-       "6              (5, 1)         (1, 1)  ...           32           64   \n",
++       "   MBconv0_kernel_size MBconv0_stride  ...  last_features  \\\n",
++       "0               (5, 1)         (1, 1)  ...           3960   \n",
++       "1               (5, 1)         (1, 1)  ...           7920   \n",
++       "2               (5, 1)         (1, 1)  ...           7920   \n",
++       "3               (5, 1)         (1, 1)  ...           7920   \n",
++       "4               (5, 1)         (1, 1)  ...           3960   \n",
++       "5               (5, 1)         (1, 1)  ...           3960   \n",
++       "6               (5, 1)         (1, 1)  ...           3960   \n",
++       "7               (5, 1)         (1, 1)  ...           3960   \n",
++       "8               (5, 1)         (1, 1)  ...           2040   \n",
++       "9               (5, 1)         (1, 1)  ...           3960   \n",
++       "10              (5, 1)         (1, 1)  ...           3960   \n",
++       "11              (5, 1)         (1, 1)  ...           3960   \n",
++       "12              (5, 1)         (1, 1)  ...           3960   \n",
++       "13              (5, 1)         (1, 1)  ...           3960   \n",
++       "14              (5, 1)         (1, 1)  ...           3960   \n",
++       "15              (5, 1)         (1, 1)  ...           3960   \n",
++       "16              (5, 1)         (1, 1)  ...           3960   \n",
++       "17              (5, 1)         (1, 1)  ...           2040   \n",
+        "\n",
+-       "  MBconv2_kernel_size MBconv2_stride  last_features  \\\n",
+-       "0              (3, 1)         (2, 1)           3960   \n",
+-       "1              (3, 1)         (1, 1)           7920   \n",
+-       "2              (3, 1)         (1, 1)           7920   \n",
+-       "3              (3, 1)         (1, 1)           7920   \n",
+-       "4              (3, 1)         (2, 1)           3960   \n",
+-       "5              (3, 1)         (2, 1)           3960   \n",
+-       "6              (3, 1)         (2, 1)           3960   \n",
++       "                                 model_path MBconv3_inp MBconv3_oup  \\\n",
++       "0   0519/DeepPP_kincnn4_0001_bs1024_weight0         NaN         NaN   \n",
++       "1   0519/DeepPP_kincnn4_1400_bs1024_weight0         NaN         NaN   \n",
++       "2   0519/DeepPP_kincnn4_1511_bs1024_weight0        64.0       128.0   \n",
++       "3   0519/DeepPP_kincnn4_1736_bs1024_weight0        64.0       128.0   \n",
++       "4   0519/DeepPP_kincnn4_1847_bs1024_weight0        64.0       128.0   \n",
++       "5   0520/DeepPP_kincnn4_0039_bs1024_weight0        64.0       128.0   \n",
++       "6   0520/DeepPP_kincnn4_1757_bs1024_weight0        64.0       128.0   \n",
++       "7   0520/DeepPP_kincnn4_1835_bs1024_weight0        64.0       128.0   \n",
++       "8          0520/kincnn4_1919_bs2048_weight0        64.0       128.0   \n",
++       "9          0521/kincnn4_1617_bs2048_weight0        64.0       128.0   \n",
++       "10         0521/kincnn4_1656_bs2048_weight0        64.0       128.0   \n",
++       "11         0521/kincnn4_1733_bs2048_weight0        64.0       128.0   \n",
++       "12         0521/kincnn4_1820_bs2048_weight0        64.0       128.0   \n",
++       "13         0521/kincnn4_1905_bs1024_weight0        64.0       128.0   \n",
++       "14         0521/kincnn4_1905_bs1024_weight0        64.0       128.0   \n",
++       "15         0522/kincnn4_1411_bs1024_weight0        64.0       128.0   \n",
++       "16         0522/kincnn4_1449_bs1024_weight0        16.0        32.0   \n",
++       "17         0522/kincnn4_1528_bs1024_weight0        16.0        32.0   \n",
+        "\n",
+-       "                                model_path MBconv3_inp MBconv3_oup  \\\n",
+-       "0  0519/DeepPP_kincnn4_0001_bs1024_weight0         NaN         NaN   \n",
+-       "1  0519/DeepPP_kincnn4_1400_bs1024_weight0         NaN         NaN   \n",
+-       "2  0519/DeepPP_kincnn4_1511_bs1024_weight0        64.0       128.0   \n",
+-       "3  0519/DeepPP_kincnn4_1736_bs1024_weight0        64.0       128.0   \n",
+-       "4  0519/DeepPP_kincnn4_1847_bs1024_weight0        64.0       128.0   \n",
+-       "5  0520/DeepPP_kincnn4_0039_bs1024_weight0        64.0       128.0   \n",
+-       "6  0520/DeepPP_kincnn4_1757_bs1024_weight0        64.0       128.0   \n",
++       "    MBconv3_kernel_size  MBconv3_stride MBconv4_inp MBconv4_kernel_size  \\\n",
++       "0                   NaN             NaN         NaN                 NaN   \n",
++       "1                   NaN             NaN         NaN                 NaN   \n",
++       "2                (5, 5)          (1, 1)         NaN                 NaN   \n",
++       "3                (5, 3)          (1, 1)         NaN                 NaN   \n",
++       "4                (5, 3)          (1, 1)         NaN                 NaN   \n",
++       "5                (5, 1)          (1, 1)         NaN                 NaN   \n",
++       "6                (3, 3)          (1, 1)         NaN                 NaN   \n",
++       "7                (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "8                (3, 1)          (2, 1)         NaN                 NaN   \n",
++       "9                (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "10               (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "11               (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "12               (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "13               (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "14               (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "15               (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "16               (3, 1)          (1, 1)         NaN                 NaN   \n",
++       "17               (5, 1)          (2, 1)        32.0              (3, 1)   \n",
+        "\n",
+-       "   MBconv3_kernel_size MBconv3_stride  \n",
+-       "0                  NaN            NaN  \n",
+-       "1                  NaN            NaN  \n",
+-       "2               (5, 5)         (1, 1)  \n",
+-       "3               (5, 3)         (1, 1)  \n",
+-       "4               (5, 3)         (1, 1)  \n",
+-       "5               (5, 1)         (1, 1)  \n",
+-       "6               (3, 3)         (1, 1)  \n",
++       "    MBconv4_oup MBconv4_stride  \n",
++       "0           NaN            NaN  \n",
++       "1           NaN            NaN  \n",
++       "2           NaN            NaN  \n",
++       "3           NaN            NaN  \n",
++       "4           NaN            NaN  \n",
++       "5           NaN            NaN  \n",
++       "6           NaN            NaN  \n",
++       "7           NaN            NaN  \n",
++       "8           NaN            NaN  \n",
++       "9           NaN            NaN  \n",
++       "10          NaN            NaN  \n",
++       "11          NaN            NaN  \n",
++       "12          NaN            NaN  \n",
++       "13          NaN            NaN  \n",
++       "14          NaN            NaN  \n",
++       "15          NaN            NaN  \n",
++       "16          NaN            NaN  \n",
++       "17         64.0         (2, 1)  \n",
+        "\n",
+-       "[7 rows x 24 columns]"
++       "[18 rows x 28 columns]"
+       ]
+      },
+-     "execution_count": 14,
++     "execution_count": 7,
+      "metadata": {},
+      "output_type": "execute_result"
+     }
+@@ -21266,7 +21908,7 @@
+    "name": "python",
+    "nbconvert_exporter": "python",
+    "pygments_lexer": "ipython3",
+-   "version": "3.10.9"
++   "version": "3.10.4"
+   },
+   "orig_nbformat": 4,
+   "vscode": {
+diff --git a/code/model_info.xlsx b/code/model_info.xlsx
+index d156840..0fc8180 100644
+Binary files a/code/model_info.xlsx and b/code/model_info.xlsx differ
+diff --git a/gpu_0.sh b/gpu_0.sh
+deleted file mode 100755
+index f1a7e97..0000000
+--- a/gpu_0.sh
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#!/bin/bash
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-B 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural Normalize 512 500 1e-3 5 7 0.5 25 
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 10 Natural Normalize 512 500 1e-3 5 7 0.5 25
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural Normalize 512 500 1e-3df_test_st 5 7 0.5 25 
+-#     config.gpu_num = sys.argv[1]
+-#     config.batch_size = int(sys.argv[2])
+-#     config.n_epoch = int(sys.argv[3])
+-#     config.defalut_learning_rate = float(sys.argv[4])
+-#     config.fold_num = int(sys.argv[5])
+-#     config.scheduler_patience, config.scheduler_factor = int(sys.argv[6]), float(sys.argv[7])
+-#     config.erls_patience = int(sys.argv[8])
+-#     config.dataset = sys.argv[9]
+-#     config.pretrain_fold_num = sys.argv[10]
+-#     config.model = f'efficientnet-phospho-B-15'
+-#     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho.py 0 2048 500 1e-3 5 7 0.7 50 kincnn1 0
+-
+-
+diff --git a/gpu_1.sh b/gpu_1.sh
+deleted file mode 100755
+index 7e627a8..0000000
+--- a/gpu_1.sh
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#!/bin/bash
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-B 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural Normalize 512 500 1e-3 5 7 0.5 25 
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 10 Natural Normalize 512 500 1e-3 5 7 0.5 25
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural Normalize 512 500 1e-3df_test_st 5 7 0.5 25 
+-#     config.gpu_num = sys.argv[1]
+-#     config.batch_size = int(sys.argv[2])
+-#     config.n_epoch = int(sys.argv[3])
+-#     config.defalut_learning_rate = float(sys.argv[4])
+-#     config.fold_num = int(sys.argv[5])
+-#     config.scheduler_patience, config.scheduler_factor = int(sys.argv[6]), float(sys.argv[7])
+-#     config.erls_patience = int(sys.argv[8])
+-#     config.dataset = sys.argv[9]
+-#     config.pretrain_fold_num = sys.argv[10]
+-#     config.model = f'efficientnet-phospho-B-15'
+-#     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho2.py 1 2048 500 1e-3 5 7 0.7 50 kincnn2 0
+-
+-
+diff --git a/gpu_2.sh b/gpu_2.sh
+deleted file mode 100755
+index 05210d3..0000000
+--- a/gpu_2.sh
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#!/bin/bash
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-B 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural Normalize 512 500 1e-3 5 7 0.5 25 
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 10 Natural Normalize 512 500 1e-3 5 7 0.5 25
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural Normalize 512 500 1e-3df_test_st 5 7 0.5 25 
+-#     config.gpu_num = sys.argv[1]
+-#     config.batch_size = int(sys.argv[2])
+-#     config.n_epoch = int(sys.argv[3])
+-#     config.defalut_learning_rate = float(sys.argv[4])
+-#     config.fold_num = int(sys.argv[5])
+-#     config.scheduler_patience, config.scheduler_factor = int(sys.argv[6]), float(sys.argv[7])
+-#     config.erls_patience = int(sys.argv[8])
+-#     config.dataset = sys.argv[9]
+-#     config.pretrain_fold_num = sys.argv[10]
+-#     config.model = f'efficientnet-phospho-B-15'
+-#     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho3.py 2 2048 500 1e-3 5 7 0.7 50 kincnn3 0
+-
+-
+diff --git a/gpu_3.sh b/gpu_3.sh
+deleted file mode 100755
+index f78a5e4..0000000
+--- a/gpu_3.sh
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#!/bin/bash
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-B 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural log 512 500 1e-3 5 7 0.5 25 
+-
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 9 Natural Normalize 512 500 1e-3 5 7 0.5 25 
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-A 10 Natural Normalize 512 500 1e-3 5 7 0.5 25
+-
+-# python /home/hb/neoantigen/code/DeepNeo_.py 0 HLA-C 9 Natural Normalize 512 500 1e-3df_test_st 5 7 0.5 25 
+-#     config.gpu_num = sys.argv[1]
+-#     config.batch_size = int(sys.argv[2])
+-#     config.n_epoch = int(sys.argv[3])
+-#     config.defalut_learning_rate = float(sys.argv[4])
+-#     config.fold_num = int(sys.argv[5])
+-#     config.scheduler_patience, config.scheduler_factor = int(sys.argv[6]), float(sys.argv[7])
+-#     config.erls_patience = int(sys.argv[8])
+-#     config.dataset = sys.argv[9]
+-#     config.pretrain_fold_num = sys.argv[10]
+-#     config.model = f'efficientnet-phospho-B-15'
+-#     config.save_dir = f'/home/hb/python/efficientnet_kincnn/saved_model/{datetime.today().strftime("%m%d")}/DeepPP_{config.dataset}_{datetime.today().strftime("%H%M")}_bs{config.batch_size}_weight{config.pretrain_fold_num}'
+-python3 /home/hb/python/efficientnet_kincnn/DeepPhospho4.py 3 2048 500 1e-3 5 7 0.7 50 kincnn4 0
+-
+-
+diff --git a/kincnn.py b/kincnn.py
+index eb8e344..9545191 100644
+--- a/kincnn.py
++++ b/kincnn.py
+@@ -252,7 +252,7 @@ class EfficientNet(nn.Module):
+         )
+ 
+         # Final linear layer
+-        # self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
++        self._avg_pooling = nn.AdaptiveAvgPool2d(1)  # <-- 원본
+         out_features = image_size[0] * image_size[1] * out_channels
+         self._dropout = nn.Dropout(self._global_params.dropout_rate)
+         self._fc = nn.Linear(out_features, self._global_params.num_classes)
+@@ -357,14 +357,14 @@ class EfficientNet(nn.Module):
+ 
+     def forward(self, inputs):
+         """Calls extract_features to extract features, applies final linear layer, and returns logits."""
+-        # bs = inputs.size(0)
++        bs = inputs.size(0)
+         # print(bs)
+         # Convolution layers
+         x = self.extract_features(inputs)
+ 
+         # Pooling and final linear layer
+-        # x = self._avg_pooling(x)
+-        # x = x.view(bs, -1)
++        x = self._avg_pooling(x)
++        x = x.view(bs, -1)
+ 
+         x = x.flatten(start_dim=1)
+         x = self._dropout(x)
+diff --git a/utils.py b/utils.py
+index bbe80a4..d4740bd 100644
+--- a/utils.py
++++ b/utils.py
+@@ -587,11 +587,11 @@ def efficientnet(
+ ):
+     """Creates a efficientnet model."""
+     blocks_args = [
+-        "r1_ckh5_ckw1_pkh0_pkw1_csh1_csw1_psh3_psw1_e1_i8_o16_se0.5",
+-        "r1_ckh5_ckw1_pkh0_pkw0_csh2_csw1_psh2_psw1_e1_i16_o32_se0.5",
+-        "r1_ckh3_ckw1_pkh0_pkw2_csh2_csw1_psh2_psw2_e1_i32_o64_se0.5",
+-        'r1_ckh3_ckw1_pkh0_pkw2_csh1_csw1_psh2_psw2_e1_i64_o128_se0.5',
+-        # 'r3_k5_s11_e6_i80_o112_se0.25',
++        "r1_ckh5_ckw1_pkh0_pkw1_csh1_csw1_psh3_psw1_e1_i8_o16_se0.25",
++        "r1_ckh5_ckw1_pkh0_pkw0_csh2_csw1_psh2_psw1_e1_i16_o32_se0.25",
++        "r1_ckh3_ckw1_pkh0_pkw2_csh2_csw1_psh2_psw2_e1_i32_o64_se0.25",
++        'r1_ckh3_ckw1_pkh0_pkw2_csh2_csw1_psh2_psw2_e1_i64_o128_se0.25',
++        # 'r1_ckh3_ckw1_pkh0_pkw0_csh1_csw1_psh2_psw2_e1_i128_o256_se0.25',
+         # 'r4_k5_s22_e6_i112_o192_se0.25',
+         # 'r1_k3_s11_e6_i192_o320_se0.25',
+         # 'r1_k3_s11_e6_i24_o48_se0.25',
+diff --git a/wandb/debug-internal.log b/wandb/debug-internal.log
+index 79fca16..9e5b0c0 120000
+--- a/wandb/debug-internal.log
++++ b/wandb/debug-internal.log
+@@ -1 +1 @@
+-run-20230518_171924-x8m3pldn/logs/debug-internal.log
+\ No newline at end of file
++run-20230522_164707-3orcoj75/logs/debug-internal.log
+\ No newline at end of file
+diff --git a/wandb/debug.log b/wandb/debug.log
+index ce491a5..be87cfd 120000
+--- a/wandb/debug.log
++++ b/wandb/debug.log
+@@ -1 +1 @@
+-run-20230518_171924-x8m3pldn/logs/debug.log
+\ No newline at end of file
++run-20230522_164707-3orcoj75/logs/debug.log
+\ No newline at end of file
+diff --git a/wandb/latest-run b/wandb/latest-run
+index bd2b586..ef09f03 120000
+--- a/wandb/latest-run
++++ b/wandb/latest-run
+@@ -1 +1 @@
+-run-20230518_171924-x8m3pldn
+\ No newline at end of file
++run-20230522_164707-3orcoj75
+\ No newline at end of file

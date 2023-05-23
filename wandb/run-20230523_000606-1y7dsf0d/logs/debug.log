@@ -1,0 +1,36 @@
+2023-05-23 00:06:06,425 INFO    MainThread:101080 [wandb_setup.py:_flush():76] Configure stats pid to 101080
+2023-05-23 00:06:06,425 INFO    MainThread:101080 [wandb_setup.py:_flush():76] Loading settings from /home/hb/.config/wandb/settings
+2023-05-23 00:06:06,425 INFO    MainThread:101080 [wandb_setup.py:_flush():76] Loading settings from /home/hb/python/efficientnet_kincnn/wandb/settings
+2023-05-23 00:06:06,425 INFO    MainThread:101080 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-05-23 00:06:06,425 INFO    MainThread:101080 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'DeepPhospho.py', 'program': '/home/hb/python/efficientnet_kincnn/DeepPhospho.py'}
+2023-05-23 00:06:06,425 INFO    MainThread:101080 [wandb_init.py:_log_setup():461] Logging user logs to /home/hb/python/efficientnet_kincnn/wandb/run-20230523_000606-1y7dsf0d/logs/debug.log
+2023-05-23 00:06:06,426 INFO    MainThread:101080 [wandb_init.py:_log_setup():462] Logging internal logs to /home/hb/python/efficientnet_kincnn/wandb/run-20230523_000606-1y7dsf0d/logs/debug-internal.log
+2023-05-23 00:06:06,426 INFO    MainThread:101080 [wandb_init.py:init():495] calling init triggers
+2023-05-23 00:06:06,426 INFO    MainThread:101080 [wandb_init.py:init():498] wandb.init called with sweep_config: {}
+config: {'gpu_num': '1', 'batch_size': 1024, 'n_epoch': 500, 'defalut_learning_rate': 0.001, 'fold_num': 5, 'scheduler_patience': 7, 'scheduler_factor': 0.7, 'erls_patience': 50, 'dataset': 'kincnn2', 'pretrain_fold_num': '0', 'model': 'KINCNN', 'save_dir': '/home/hb/python/efficientnet_kincnn/saved_model/0523/kincnn2_0006_bs1024_weight0'}
+2023-05-23 00:06:06,426 INFO    MainThread:101080 [wandb_init.py:init():548] starting backend
+2023-05-23 00:06:06,426 INFO    MainThread:101080 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-05-23 00:06:06,435 INFO    MainThread:101080 [backend.py:ensure_launched():217] starting backend process...
+2023-05-23 00:06:06,438 INFO    MainThread:101080 [backend.py:ensure_launched():222] started backend process with pid: 101147
+2023-05-23 00:06:06,438 INFO    MainThread:101080 [wandb_init.py:init():558] backend started and connected
+2023-05-23 00:06:06,444 INFO    MainThread:101080 [wandb_init.py:init():634] updated telemetry
+2023-05-23 00:06:06,451 INFO    MainThread:101080 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2023-05-23 00:06:07,386 WARNING MainThread:101080 [wandb_init.py:init():1064] interrupted
+Traceback (most recent call last):
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 1043, in init
+    run = wi.init()
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/wandb/sdk/wandb_init.py", line 668, in init
+    run_result = backend.interface.communicate_run(
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/wandb/sdk/interface/interface.py", line 223, in communicate_run
+    return self._communicate_run(run, timeout=timeout)
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/wandb/sdk/interface/interface_shared.py", line 324, in _communicate_run
+    resp = self._communicate(req, timeout=timeout)
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/wandb/sdk/interface/interface_shared.py", line 226, in _communicate
+    return self._communicate_async(rec, local=local).get(timeout=timeout)
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/wandb/sdk/interface/router.py", line 37, in get
+    is_set = self._object_ready.wait(timeout)
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/threading.py", line 600, in wait
+    signaled = self._cond.wait(timeout)
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/threading.py", line 324, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt

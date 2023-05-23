@@ -1,0 +1,66 @@
+{'gpu_num': '3', 'batch_size': 1024, 'n_epoch': 500, 'defalut_learning_rate': 0.001, 'fold_num': 5, 'scheduler_patience': 7, 'scheduler_factor': 0.7, 'erls_patience': 50, 'dataset': 'kincnn4', 'pretrain_fold_num': '0', 'model': 'KINCNN', 'save_dir': '/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn4_1648_bs1024_weight0'}
+FOLD 0
+--------------------------------
+2040
+lr:  0.001
+------------------------------------------------------------
+Epoch 1/500
+  0%|                                                                              | 0/500 [00:00<?, ?it/s]
+  0%|                                                                               | 0/14 [00:00<?, ?it/s]
+tensor([[[[ 0.0554]],
+         [[ 0.1163]],
+         [[ 0.1483]],
+         ...,
+         [[ 0.0868]],
+         [[ 0.0679]],
+         [[ 0.0255]]],
+        [[[ 0.0830]],
+         [[ 0.2504]],
+         [[ 0.2974]],
+         ...,
+         [[ 0.1662]],
+         [[ 0.0910]],
+         [[ 0.1225]]],
+        [[[ 0.0833]],
+         [[ 0.0578]],
+         [[ 0.1222]],
+         ...,
+         [[ 0.0847]],
+         [[-0.0113]],
+         [[-0.0028]]],
+        ...,
+        [[[ 0.0699]],
+         [[ 0.0776]],
+         [[ 0.0910]],
+         ...,
+         [[ 0.0830]],
+         [[-0.0260]],
+         [[ 0.0378]]],
+        [[[ 0.1762]],
+         [[ 0.2327]],
+         [[ 0.2473]],
+         ...,
+         [[ 0.1683]],
+         [[ 0.4855]],
+         [[ 0.3455]]],
+        [[[ 0.0743]],
+         [[ 0.0846]],
+         [[ 0.0836]],
+         ...,
+         [[ 0.1019]],
+         [[ 0.0073]],
+  0%|                                                                              | 0/500 [00:02<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/hb/python/efficientnet_kincnn/DeepPhospho.py", line 296, in <module>
+    train_model_5cv()
+  File "/home/hb/python/efficientnet_kincnn/DeepPhospho.py", line 173, in train_model_5cv
+    pred = model(inputs) # forward
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/hb/python/efficientnet_kincnn/kincnn.py", line 372, in forward
+    x = self._fc(x)
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (1024x8 and 2040x1)

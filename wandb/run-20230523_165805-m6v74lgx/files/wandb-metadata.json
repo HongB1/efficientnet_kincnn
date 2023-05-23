@@ -1,0 +1,35 @@
+{
+    "os": "Linux-5.15.0-72-generic-x86_64-with-glibc2.31",
+    "python": "3.10.4",
+    "heartbeatAt": "2023-05-23T07:58:06.964884",
+    "startedAt": "2023-05-23T07:58:05.892316",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_count": 4,
+    "cpu_count": 88,
+    "cuda": null,
+    "args": [
+        "0",
+        "1024",
+        "500",
+        "1e-3",
+        "5",
+        "7",
+        "0.7",
+        "50",
+        "kincnn1",
+        "0"
+    ],
+    "state": "running",
+    "program": "/home/hb/python/efficientnet_kincnn/DeepPhospho.py",
+    "codePath": "DeepPhospho.py",
+    "git": {
+        "remote": "https://github.com/HongB1/efficientnet_kincnn.git",
+        "commit": "e5075bf7ee7bf1faf603e7cac9fe44efc910c91b"
+    },
+    "email": "hongbikim14@gmail.com",
+    "root": "/home/hb/python/efficientnet_kincnn",
+    "host": "workstation",
+    "username": "hb",
+    "executable": "/home/hb/anaconda3/envs/neoantigen/bin/python3"
+}

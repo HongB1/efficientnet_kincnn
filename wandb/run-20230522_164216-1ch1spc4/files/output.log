@@ -1,0 +1,29 @@
+{'gpu_num': '2', 'batch_size': 1024, 'n_epoch': 500, 'defalut_learning_rate': 0.001, 'fold_num': 5, 'scheduler_patience': 7, 'scheduler_factor': 0.7, 'erls_patience': 50, 'dataset': 'kincnn3', 'pretrain_fold_num': '0', 'model': 'KINCNN', 'save_dir': '/home/hb/python/efficientnet_kincnn/saved_model/0522/kincnn3_1642_bs1024_weight0'}
+FOLD 0
+--------------------------------
+2040
+lr:  0.001
+------------------------------------------------------------
+Epoch 1/500
+  0%|                                                   | 0/500 [00:00<?, ?it/s]
+  0%|                                                   | 0/500 [00:02<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/hb/python/efficientnet_kincnn/DeepPhospho.py", line 296, in <module>
+    train_model_5cv()
+  File "/home/hb/python/efficientnet_kincnn/DeepPhospho.py", line 173, in train_model_5cv
+    pred = model(inputs) # forward
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/hb/python/efficientnet_kincnn/kincnn.py", line 363, in forward
+    x = self.extract_features(inputs)
+  File "/home/hb/python/efficientnet_kincnn/kincnn.py", line 349, in extract_features
+    x = block(x, drop_connect_rate=drop_connect_rate)
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/hb/python/efficientnet_kincnn/kincnn.py", line 121, in forward
+    x = self._depthwise_conv(x)  # 2
+  File "/home/hb/anaconda3/envs/neoantigen/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/hb/python/efficientnet_kincnn/utils.py", line 340, in forward
+    x = F.conv2d(
+RuntimeError: Given groups=8, weight of size [8, 1, 5, 1], expected input[1024, 16, 135, 15] to have 8 channels, but got 16 channels instead
